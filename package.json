@@ -3,10 +3,10 @@
     "module": "index.ts",
     "type": "module",
     "scripts": {
+        "start": "bun --hot index.ts",
         "build": "biome build",
         "lint": "bunx biome lint",
-        "format": "bunx biome format --write",
-        "prisma:generate": "prisma generate"
+        "format": "bunx biome format --write"
     },
     "devDependencies": {
         "@biomejs/biome": "^1.9.4",
