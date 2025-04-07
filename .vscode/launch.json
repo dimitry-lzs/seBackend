@@ -5,14 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "bun",
-            "internalConsoleOptions": "neverOpen",
+            "type": "java",
+            "name": "Main",
             "request": "launch",
-            "name": "Run",
-            "program": "index.ts",
-            "cwd": "${workspaceFolder}",
-            "stopOnEntry": false,
-            "watchMode": false,
+            "mainClass": "com.softwareengineering.Main",
+            "projectName": "softwareengineering"
         },
     ],
 }

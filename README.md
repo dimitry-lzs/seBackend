@@ -1,15 +1,12 @@
-# softwareengineering
+# Software Engineering Backend
 
-To install dependencies:
+## Instructions
 
-```bash
-bun install
-```
-
-To run:
+Before running
 
 ```bash
-bun run index.ts
+cd softwareengineering
+mvn process-classes
 ```
 
-This project was created using `bun init` in bun v1.2.2. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+After that you can run it pressing F5 in VSCode
