@@ -3,7 +3,6 @@ package com.softwareengineering;
 
 import com.softwareengineering.controllers.UserController;
 import com.softwareengineering.models.User;
-import com.softwareengineering.services.UserService;
 
 import io.javalin.Javalin;
 
