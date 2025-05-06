@@ -1,10 +1,13 @@
 package com.softwareengineering.models;
 
 import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.HasMany;
 import org.javalite.activejdbc.annotations.Table;
 
 import com.softwareengineering.models.enums.UserTypeEnum;
 
+@HasMany(foreignKeyName = "id", child = Availability.class)
+@HasMany(foreignKeyName = "id", child = Appointment.class)
 @Table("users")
 public class User extends Model {
     static {

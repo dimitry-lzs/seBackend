@@ -1,8 +1,9 @@
 CREATE TABLE
     users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         email text,
-        fullName text,
         password text,
+        fullName text,
         userType text,
         phone text,
         amka text,
