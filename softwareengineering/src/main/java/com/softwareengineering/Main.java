@@ -6,6 +6,7 @@ import com.softwareengineering.controllers.UserController;
 import com.softwareengineering.services.UserService;
 import com.softwareengineering.models.*;
 import java.sql.Timestamp;
+
 import io.javalin.Javalin;
 
 public class Main {

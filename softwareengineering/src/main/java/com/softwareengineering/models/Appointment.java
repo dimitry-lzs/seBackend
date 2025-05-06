@@ -2,9 +2,10 @@ package com.softwareengineering.models;
 
 import java.sql.Time;
 import java.sql.Timestamp;
-import com.softwareengineering.models.enums.Status;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
+
+import com.softwareengineering.models.enums.Status;
 
 @Table("appointments")
 public class Appointment extends Model {

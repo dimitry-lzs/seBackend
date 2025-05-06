@@ -1,62 +1,74 @@
 package com.softwareengineering.models;
+
 import com.softwareengineering.models.enums.Speciality;
-import com.softwareengineering.models.enums.UserType.UserTypeEnum;
+import com.softwareengineering.models.enums.UserTypeEnum;
+import com.softwareengineering.models.interfaces.DoctorInterface;
 
-public class Doctor extends User {
+public class Doctor extends UserWrapper implements DoctorInterface {
 
-    private String licenceID;
-    private Speciality speciality;
-    private String bio;
-    private String officeLocation;
-    private float rating;
-
-    public Doctor(String fullName, String email, String password, String phone, String licenceID, Speciality speciality, String bio, String officeLocation, float rating) {
-        super(fullName, email, password, phone, UserTypeEnum.DOCTOR);
-        this.set("licenceID", licenceID);
-        this.set("speciality", speciality);
-        this.set("bio", bio);
-        this.set("officeLocation", officeLocation);
-        this.set("rating", rating);
+    // Default constructor
+    public Doctor() {
+        super(new User());
+        set("userType", UserTypeEnum.DOCTOR);
     }
 
-    public void setLicenceID(String licenceID) {
-        this.set("licenceID", licenceID);
+    public Doctor(String fullName, String email, String password, String phone, String licenceID,
+            Speciality speciality,
+            String bio, String officeLocation) {
+        this();
+        set("licenceID", licenceID);
+        set("speciality", speciality);
+        set("bio", bio);
+        set("officeLocation", officeLocation);
+    }
+
+    public Doctor(User user) {
+        super(user);
+        if (!UserTypeEnum.DOCTOR.equals(user.get("userType"))) {
+            throw new IllegalArgumentException("User is not a doctor");
+        }
+    }
+
+    public static Doctor findByEmail(String email) {
+        User user = User.findFirst("userType = ? AND email = ?", UserTypeEnum.DOCTOR, email);
+        if (user == null) {
+            return null;
+        }
+        if (!UserTypeEnum.DOCTOR.equals(user.get("userType"))) {
+            throw new IllegalArgumentException("User is not a doctor");
+        }
+        return new Doctor(user);
     }
 
     public String getLicenceID() {
-        return licenceID;
+        return (String) get("licenceID");
     }
 
-    public void setSpeciality(Speciality speciality) {
-        this.set("speciality", speciality);
+    public void setLicenceID(String licenceID) {
+        set("licenceID", licenceID);
     }
 
     public Speciality getSpeciality() {
-        return speciality;
-    }   
+        return (Speciality) get("speciality");
+    }
 
-    public void setBio(String bio) {
-        this.set("bio", bio);
+    public void setSpeciality(Speciality speciality) {
+        set("speciality", speciality);
     }
 
     public String getBio() {
-        return bio;
+        return (String) get("bio");
     }
 
-    public void setOfficeLocation(String officeLocation) {
-        this.set("officeLocation", officeLocation);
+    public void setBio(String bio) {
+        set("bio", bio);
     }
 
     public String getOfficeLocation() {
-        return officeLocation;
+        return (String) get("officeLocation");
     }
 
-    public void setRating(float rating) {
-        this.set("rating", rating);
+    public void setOfficeLocation(String officeLocation) {
+        set("officeLocation", officeLocation);
     }
-
-    public float getRating() {
-        return rating;
-    }
-
 }

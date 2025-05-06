@@ -2,7 +2,6 @@ package com.softwareengineering.controllers;
 
 import java.util.List;
 import java.util.Map;
-
 import com.softwareengineering.services.UserService;
 
 import io.javalin.Context;

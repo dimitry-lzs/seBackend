@@ -1,23 +1,24 @@
 package com.softwareengineering.models;
 
 import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.HasMany;
 import org.javalite.activejdbc.annotations.Table;
 
-import com.softwareengineering.models.enums.UserType.UserTypeEnum;
+import com.softwareengineering.models.enums.UserTypeEnum;
 
+@HasMany(foreignKeyName = "id", child = Availability.class)
+@HasMany(foreignKeyName = "id", child = Appointment.class)
 @Table("users")
 public class User extends Model {
     static {
         validatePresenceOf("email");
+        validatePresenceOf("userType");
         validateEmailOf("email").message("Invalid email");
     }
-    private String fullName;
-    private String email;
-    private String password;
-    private String phone;
-    private UserTypeEnum userType;
-    private int id;
 
+    public User() {
+        super();
+    }
 
     public User(String fullName, String email, String password, String phone, UserTypeEnum userType) {
         this.set("fullName", fullName);
