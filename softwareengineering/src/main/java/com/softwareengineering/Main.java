@@ -1,10 +1,11 @@
 
 package com.softwareengineering;
 
+import com.softwareengineering.controllers.AppointmentsController;
 import com.softwareengineering.controllers.UserController;
-import com.softwareengineering.models.User;
 import com.softwareengineering.services.UserService;
-
+import com.softwareengineering.models.*;
+import java.sql.Timestamp;
 import io.javalin.Javalin;
 
 public class Main {
@@ -13,7 +14,17 @@ public class Main {
         app.before(ctx -> Db.connect());
         app.after(ctx -> Db.close());
         UserController.init(app);
+        AppointmentsController.init(app);
+
         app.get("/", ctx -> ctx.result("Software Engineering Backend"));
-        app.get("/test", ctx -> ctx.json(User.findAll().toMaps()));
+        app.get("/test", ctx -> ctx.json(UserService.getUsers()));
+         app.get("/test2", ctx -> {
+            Appointment appointment = new Appointment(null, null, null, null, 0, 0);
+            appointment.set("date", new Timestamp(System.currentTimeMillis()));
+            appointment.saveIt();
+            ctx.json(Appointment.findAll().toMaps());
+        });
+
+
     }
 }
