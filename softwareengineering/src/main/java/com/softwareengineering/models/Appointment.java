@@ -1,21 +1,14 @@
 package com.softwareengineering.models;
 
-import java.security.Timestamp;
 import java.sql.Time;
+import java.sql.Timestamp;
 import com.softwareengineering.models.enums.Status;
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
+
 @Table("appointments")
 public class Appointment extends Model {
-    
-    private Timestamp date;
-    private Time timeFrom;
-    private Time timeTo;
-    private Status status;
-    private int patientID;
-    private int doctorID;
-
     public Appointment(Timestamp date, Time timeFrom, Time timeTo, Status status, int patientID, int doctorID) {
         this.set("date", date);
         this.set("timeFrom", timeFrom);
@@ -26,51 +19,40 @@ public class Appointment extends Model {
     }
 
     public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.set("date", date);
+        return (Timestamp) this.get("date");
     }
 
     public Time getTimeFrom() {
-        return timeFrom;
+        return (Time) this.get("timeFrom");
     }
-
+    public Time getTimeTo() {
+        return (Time) this.get("timeTo");
+    }
+    public Status getStatus() {
+        return (Status) this.get("status");
+    }
+    public int getPatientID() {
+        return (int) this.get("patientID");
+    }
+    public int getDoctorID() {
+        return (int) this.get("doctorID");
+    }
+    public void setDate(Timestamp date) {
+        this.set("date", date);
+    }
     public void setTimeFrom(Time timeFrom) {
         this.set("timeFrom", timeFrom);
     }
-
-    public Time getTimeTo() {
-        return timeTo;
-    }
-
     public void setTimeTo(Time timeTo) {
-        this.set("TimeTo", timeTo);
+        this.set("timeTo", timeTo);
     }
-
-    public Status getStatus() {
-        return status;
-    }
-
     public void setStatus(Status status) {
         this.set("status", status);
     }
-
-    public int getPatientID() {
-        return patientID;
-    }
-
     public void setPatientID(int patientID) {
         this.set("patientID", patientID);
     }
-
-    public int getDoctorID() {
-        return doctorID;
-    }
-
     public void setDoctorID(int doctorID) {
         this.set("doctorID", doctorID);
     }
-
 }
