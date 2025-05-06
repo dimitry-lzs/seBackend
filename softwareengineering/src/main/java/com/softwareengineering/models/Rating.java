@@ -17,6 +17,9 @@ public class Rating extends Model {
         this.set("patientId", patientId);
     }
 
+    public Rating(){
+    }
+
     public float getStars() {
         return stars;
     }

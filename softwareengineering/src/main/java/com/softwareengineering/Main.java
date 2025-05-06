@@ -2,6 +2,8 @@
 package com.softwareengineering;
 
 import com.softwareengineering.controllers.AppointmentsController;
+import com.softwareengineering.controllers.AvailabilitiesController;
+import com.softwareengineering.controllers.RatingsController;
 import com.softwareengineering.controllers.UserController;
 import com.softwareengineering.services.UserService;
 import com.softwareengineering.models.*;
@@ -16,6 +18,8 @@ public class Main {
         app.after(ctx -> Db.close());
         UserController.init(app);
         AppointmentsController.init(app);
+        RatingsController.init(app);
+        AvailabilitiesController.init(app);
 
         app.get("/", ctx -> ctx.result("Software Engineering Backend"));
         app.get("/test", ctx -> ctx.json(UserService.getUsers()));
@@ -25,7 +29,6 @@ public class Main {
             appointment.saveIt();
             ctx.json(Appointment.findAll().toMaps());
         });
-
 
     }
 }

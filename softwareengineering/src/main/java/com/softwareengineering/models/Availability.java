@@ -19,6 +19,8 @@ public class Availability extends Model {
         this.set("doctorID", doctorID);
     }
 
+    public Availability(){}
+
     public void setDate(Timestamp date) {
         this.set("date", date);
     }
