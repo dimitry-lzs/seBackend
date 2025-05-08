@@ -1,5 +1,7 @@
 package com.softwareengineering.models;
 
+import com.softwareengineering.models.enums.UserTypeEnum;
+
 public class UserWrapper {
     protected final User user;
 
@@ -39,8 +41,29 @@ public class UserWrapper {
         return user.get("phone").toString();
     }
 
-    public void saveIt() {
-        user.saveIt();
+    public UserTypeEnum getType() {
+        return user.getType();
+    }
+
+    public boolean saveIt() {
+        if (this.getType() == null) {
+            throw new IllegalArgumentException("User type is required");
+        }
+        if (this.getType() == UserTypeEnum.DOCTOR) {
+            if (user.get("speciality") == null) {
+                throw new IllegalArgumentException("Speciality is required for doctors");
+            }
+            if (user.get("licenceID") == null) {
+                throw new IllegalArgumentException("Licence ID is required for doctors");
+            }
+        } else if (this.getType() == UserTypeEnum.PATIENT) {
+            if (user.get("amka") == null) {
+                throw new IllegalArgumentException("AMKA is required for patients");
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid user type");
+        }
+        return user.saveIt();
     }
 
     public int getId() {

@@ -1,7 +1,7 @@
 CREATE TABLE
     users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email text,
+        email text UNIQUE,
         password text,
         fullName text,
         userType text,

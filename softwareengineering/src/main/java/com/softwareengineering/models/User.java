@@ -14,6 +14,7 @@ public class User extends Model {
         validatePresenceOf("email");
         validatePresenceOf("userType");
         validateEmailOf("email").message("Invalid email");
+        validatePresenceOf("password").message("Password is required");
     }
 
     public User() {
@@ -26,5 +27,9 @@ public class User extends Model {
         this.set("password", password);
         this.set("phone", phone);
         this.set("userType", userType);
+    }
+
+    public UserTypeEnum getType() {
+        return (UserTypeEnum) this.get("userType");
     }
 }
