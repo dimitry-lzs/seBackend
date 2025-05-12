@@ -14,6 +14,7 @@ public class AppointmentsController {
         app.get("/doctor-appointments", AppointmentsController::getDoctorAppointments);
         app.get("/patient-appointments", AppointmentsController::getPatientAppointments);
         app.post("set-appointment", AppointmentsController::setAppointment);
+        app.patch("update-appointment-status", AppointmentsController::updateAppointmentStatus);
     }
 
     private static void getDoctorAppointments(Context context) {
@@ -44,5 +45,19 @@ public class AppointmentsController {
         }
         AppointmentsService.setAppointment(body.doctorID, body.patientID, body.timeFrom, body.timeTo, body.date, body.status);
         context.status(201);
+    }
+
+    private static void updateAppointmentStatus(Context context) {
+        AppointmentBody body = context.bodyAsClass(AppointmentBody.class);
+        if (body.appointmentID == null) {
+            context.status(400).json(Map.of("error", "Appointment ID cannot be null"));
+            return;
+        }
+        if (body.status == null) {
+            context.status(400).json(Map.of("error", "Status cannot be null"));
+            return;
+        }
+        AppointmentsService.updateAppointmentStatus(body.appointmentID, body.status);
+        context.status(200);
     }
 }
