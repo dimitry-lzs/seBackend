@@ -1,0 +1,15 @@
+meta {
+  name: Doctor-Availabilities
+  type: http
+  seq: 12
+}
+
+get {
+  url: http://localhost:7070/doctor-availabilities?doctorID=2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  doctorID: 2
+}

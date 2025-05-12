@@ -1,0 +1,15 @@
+meta {
+  name: Doctor-Appointments
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:7070/doctor-appointments?doctorID=2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  doctorID: 2
+}
