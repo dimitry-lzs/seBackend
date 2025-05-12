@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.softwareengineering.controllers.AppointmentsController;
 import com.softwareengineering.controllers.AvailabilitiesController;
+import com.softwareengineering.controllers.DiagnosesController;
 import com.softwareengineering.controllers.RatingsController;
 import com.softwareengineering.controllers.UserController;
 import com.softwareengineering.services.UserService;
@@ -32,6 +33,7 @@ public class Main {
         AppointmentsController.init(app);
         RatingsController.init(app);
         AvailabilitiesController.init(app);
+        DiagnosesController.init(app);
 
         app.get("/", ctx -> ctx.result("Software Engineering Backend"));
         app.get("/test", ctx -> ctx.json(UserService.getUsers()));

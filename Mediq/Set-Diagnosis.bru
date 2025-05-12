@@ -1,0 +1,19 @@
+meta {
+  name: Set-Diagnosis
+  type: http
+  seq: 9
+}
+
+post {
+  url: http://localhost:7070/set-diagnosis
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "appointmentID":1,
+    "decease":"arrwstos",
+    "details":"poli poli arrwstos"
+  }
+}

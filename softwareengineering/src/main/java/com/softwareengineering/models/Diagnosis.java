@@ -15,6 +15,9 @@ public class Diagnosis extends Model {
         this.set("details", details);
     }
 
+    public Diagnosis() {
+    }
+
     public int getDiagnosisId() {
         return id;
     }
