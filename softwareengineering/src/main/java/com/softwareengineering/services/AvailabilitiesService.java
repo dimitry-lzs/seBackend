@@ -9,4 +9,13 @@ public class AvailabilitiesService {
         List<Map<String, Object>> availabilities = Availability.where("doctorID = ?", DoctorID).toMaps();
         return availabilities;
     }
+
+    public static void setAvailability (java.sql.Timestamp date, java.sql.Timestamp timeFrom, java.sql.Timestamp timeTo, int doctorID) {
+        Availability availability = new Availability();
+        availability.set("date", date);
+        availability.set("timeFrom", timeFrom);
+        availability.set("timeTo", timeTo);
+        availability.set("doctorID", doctorID);
+        availability.saveIt();
+    }
 }
