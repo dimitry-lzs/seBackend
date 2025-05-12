@@ -12,7 +12,7 @@ public class Appointment extends Model {
     public Appointment() {
     }
 
-    public Appointment(Timestamp date, Time timeFrom, Time timeTo, Status status, int patientID, int doctorID) {
+    public Appointment(Timestamp date, Time timeFrom, Time timeTo, String status, int patientID, int doctorID) {
         this.set("date", date);
         this.set("timeFrom", timeFrom);
         this.set("timeTo", timeTo);
