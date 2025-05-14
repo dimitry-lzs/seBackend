@@ -16,6 +16,7 @@ public class UserController {
         app.get("/users", UserController::getUsers);
         app.post("/register", UserController::registerUser);
         app.post("/login", UserController::loginUser);
+        app.get("/login", UserController::getLogin);
     }
 
     private static void registerUser(Context context) {
@@ -34,25 +35,45 @@ public class UserController {
             return;
         }
         User loggedInUser = UserService.loginUser(body.email, body.password);
+
         context.sessionAttribute("userType", loggedInUser.get("userType"));
         context.sessionAttribute("userEmail", loggedInUser.get("email"));
+        context.sessionAttribute("id", loggedInUser.get("id"));
+        context.status(200).json(getUserData(loggedInUser));
+    }
 
-        Map<String, Object> responseMap = new HashMap<>();
-        addIfNotNull(responseMap, "userType", loggedInUser.get("userType"));
-        addIfNotNull(responseMap, "email", loggedInUser.get("email"));
-        addIfNotNull(responseMap, "fullName", loggedInUser.get("fullName"));
-        addIfNotNull(responseMap, "phone", loggedInUser.get("phone"));
-        addIfNotNull(responseMap, "amka", loggedInUser.get("amka"));
-        addIfNotNull(responseMap, "licenceID", loggedInUser.get("licenceID"));
-        addIfNotNull(responseMap, "speciality", loggedInUser.get("speciality"));
+    private static void getLogin(Context context) {
+        String email = context.sessionAttribute("userEmail");
+        int id = context.sessionAttribute("id");
+        String userType = context.sessionAttribute("userType");
 
-        context.status(200).json(responseMap);
+        if (email == null || userType == null || id == 0) {
+            context.status(401).json(Map.of("message", "Unauthorized"));
+            return;
+        }
+
+        User loggedInUser = User.findFirst("id = ?", id);
+        context.status(200).json(getUserData(loggedInUser));
+    }
+
+    private static Map<String, Object> getUserData(User user) {
+        Map<String, Object> userData = new HashMap<>();
+        addIfNotNull(userData, "userType", user.get("userType"));
+        addIfNotNull(userData, "email", user.get("email"));
+        addIfNotNull(userData, "fullName", user.get("fullName"));
+        addIfNotNull(userData, "phone", user.get("phone"));
+        addIfNotNull(userData, "amka", user.get("amka"));
+        addIfNotNull(userData, "licenceID", user.get("licenceID"));
+        addIfNotNull(userData, "speciality", user.get("speciality"));
+
+        return userData;
     }
 
     private static void getUsers(Context context) {
         List<Map<String, Object>> users = UserService.getUsers();
         context.json(users);
     }
+
     private static void addIfNotNull(Map<String, Object> map, String key, Object value) {
         if (value != null) {
             map.put(key, value);
