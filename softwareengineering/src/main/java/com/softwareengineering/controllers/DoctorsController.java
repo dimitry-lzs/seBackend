@@ -1,0 +1,42 @@
+package com.softwareengineering.controllers;
+
+import io.javalin.Javalin;
+import com.softwareengineering.models.User;
+import java.util.List;
+import java.util.Map;
+import io.javalin.Context;
+import com.softwareengineering.services.DoctorsService;
+
+public class DoctorsController {
+    public static void init(Javalin app) {
+        app.get("/doctors", DoctorsController::getDoctors);
+        app.get("/get-doctor", DoctorsController::getDoctorByID);
+        app.get("/get-doctor-specialities", DoctorsController::getDoctorSpecialities);
+        app.get("/get-doctor-locations", DoctorsController::getDoctorLocations);
+    }
+
+    private static void getDoctors(Context context) {
+        List<Map<String, Object>> doctors = DoctorsService.getDoctors();
+        context.json(doctors);
+    }
+
+    private static void getDoctorByID(Context context) {
+        int doctorId = Integer.parseInt(context.queryParam("doctorID"));
+        User doctorModel = DoctorsService.getDoctorById(doctorId); // Use the actual type here
+        if (doctorModel != null) {
+            context.json(doctorModel.toMap());
+        } else {
+            context.status(404).json(Map.of("error", "Doctor not found"));
+        }
+    }
+
+    private static void getDoctorSpecialities(Context context) {
+        List<String> specialities = DoctorsService.getDoctorSpecialities();
+        context.json(specialities);
+    }
+
+    private static void getDoctorLocations(Context context) {
+        List<String> locations = DoctorsService.getDoctorLocations();
+        context.json(locations);
+    }
+}
