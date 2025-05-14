@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36 OPR/117.0.0.0" version="26.2.12">
+  <diagram name="Page-1" id="ExWvBBJ0pPHqwuP2lS5M">
+    <mxGraphModel dx="1181" dy="647" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-19" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" width="520" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="TeuM16JpbHLG3HXrUDXh-1" target="TeuM16JpbHLG3HXrUDXh-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=light-dark(#FFFFFF,#000000);" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-2" value="Appointment" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;" vertex="1" parent="1">
+          <mxGeometry x="390" y="40" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="TeuM16JpbHLG3HXrUDXh-3" target="TeuM16JpbHLG3HXrUDXh-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="TeuM16JpbHLG3HXrUDXh-3" target="TeuM16JpbHLG3HXrUDXh-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-3" value="Appointment Active (Scheduled)" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="180" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="TeuM16JpbHLG3HXrUDXh-5" target="TeuM16JpbHLG3HXrUDXh-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-5" value="Appointment Cancelled" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="320" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="TeuM16JpbHLG3HXrUDXh-6" target="TeuM16JpbHLG3HXrUDXh-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-6" value="Appointment Completed" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="320" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-8" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=light-dark(#FFFFFF,#FFFFFF);" vertex="1" parent="1">
+          <mxGeometry x="400" y="480" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-9" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=light-dark(#FFFFFF,#000000);" vertex="1" parent="1">
+          <mxGeometry x="405" y="485" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-11" value="Appointment created" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="425" y="130" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-14" value="Scheduled Date and Time passed and not cancelled" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="260" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TeuM16JpbHLG3HXrUDXh-15" value="Cancelled from doctor/patient" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="260" width="90" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
