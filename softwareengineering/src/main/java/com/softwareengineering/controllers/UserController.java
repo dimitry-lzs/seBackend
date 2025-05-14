@@ -17,6 +17,7 @@ public class UserController {
         app.post("/register", UserController::registerUser);
         app.post("/login", UserController::loginUser);
         app.get("/login", UserController::getLogin);
+        app.get("/logout", UserController::logoutUser);
     }
 
     private static void registerUser(Context context) {
@@ -54,6 +55,13 @@ public class UserController {
 
         User loggedInUser = User.findFirst("id = ?", id);
         context.status(200).json(getUserData(loggedInUser));
+    }
+
+    private static void logoutUser(Context context) {
+        context.sessionAttribute("userType", "");
+        context.sessionAttribute("id", 0);
+        context.sessionAttribute("userEmail", "");
+        context.status(200).json(Map.of("message", "Logged out successfully"));
     }
 
     private static Map<String, Object> getUserData(User user) {
