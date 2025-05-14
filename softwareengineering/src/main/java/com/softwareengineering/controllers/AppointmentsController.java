@@ -2,6 +2,7 @@ package com.softwareengineering.controllers;
 
 import io.javalin.Javalin;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -19,14 +20,28 @@ public class AppointmentsController {
 
     private static void getDoctorAppointments(Context context) {
         int doctorID = Integer.parseInt(context.queryParam("doctorID"));
-        List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID);
-        context.json(appointments);
+        if (context.queryParam("dateFrom") == null) {
+            List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID);
+            context.json(appointments);
+            return;
+        } else {
+            Timestamp dateFrom = Timestamp.valueOf(context.queryParam("dateFrom"));
+            List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID, dateFrom);
+            context.json(appointments);
+        }
     }
 
     private static void getPatientAppointments(Context context) {
         int patientID = Integer.parseInt(context.queryParam("patientID"));
-        List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID);
-        context.json(appointments);
+        if (context.queryParam("dateFrom") == null) {
+            List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID);
+            context.json(appointments);
+            return;
+        } else {
+            Timestamp dateFrom = Timestamp.valueOf(context.queryParam("dateFrom"));
+            List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID, dateFrom);
+            context.json(appointments);
+        }
     }
 
     private static void setAppointment(Context context) {
@@ -35,16 +50,22 @@ public class AppointmentsController {
             context.status(400).json(Map.of("error", "Doctor ID and Patient ID cannot be null"));
             return;
         }
-        if (body.date == null) {
-            context.status(400).json(Map.of("error", "date cannot be null"));
+        if (body.slotID == null) {
+            context.status(400).json(Map.of("error", "slotID cannot be null"));
             return;
         }
         if (body.status == null) {
             context.status(400).json(Map.of("error", "Status cannot be null"));
             return;
         }
-        AppointmentsService.setAppointment(body.doctorID, body.patientID, body.date, body.status);
-        context.status(201);
+        if (body.reason == null) {
+            AppointmentsService.setAppointment(body.doctorID, body.patientID, body.slotID, body.status);
+            context.status(201);
+            return;
+        } else {
+            AppointmentsService.setAppointment(body.doctorID, body.patientID, body.slotID, body.status, body.reason);
+            context.status(201);
+        }
     }
 
     private static void updateAppointmentStatus(Context context) {

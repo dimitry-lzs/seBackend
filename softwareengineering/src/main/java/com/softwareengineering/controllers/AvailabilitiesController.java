@@ -3,7 +3,9 @@ package com.softwareengineering.controllers;
 import io.javalin.Javalin;
 
 import com.softwareengineering.services.AvailabilitiesService;
-import com.softwareengineering.dto.AvailabilityBody;
+import com.softwareengineering.dto.AvailabilityBatchBody;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import io.javalin.Context;
@@ -21,16 +23,15 @@ public class AvailabilitiesController {
     }
 
     private static void setAvailability(Context context) {
-        AvailabilityBody body = context.bodyAsClass(AvailabilityBody.class);
-        if (body.date == null || body.timeFrom == null || body.timeTo == null) {
-            context.status(400).json(Map.of("error", "Date, timeFrom, and timeTo cannot be null"));
+        AvailabilityBatchBody body = context.bodyAsClass(AvailabilityBatchBody.class);
+        if (body.slots == null || body.slots.isEmpty()) {
+            context.status(400).json(Map.of("error", "Invalid request body"));
             return;
         }
-        if (body.doctorID == null) {
-            context.status(400).json(Map.of("error", "Doctor ID cannot be null"));
-            return;
+        for (Timestamp slot : body.slots) {
+            AvailabilitiesService.setAvailability(slot, body.doctorID);
+            context.status(201).json(Map.of("message", "Availability set successfully"));
         }
-        AvailabilitiesService.setAvailability(body.date, body.timeFrom, body.timeTo, body.doctorID);
-        context.status(201);
+        
     }
 }

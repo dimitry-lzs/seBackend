@@ -13,6 +13,7 @@ public class DoctorsController {
         app.get("/get-doctor", DoctorsController::getDoctorByID);
         app.get("/get-doctor-specialities", DoctorsController::getDoctorSpecialities);
         app.get("/get-doctor-locations", DoctorsController::getDoctorLocations);
+        app.get("/find-doctors", DoctorsController::findDoctors);
     }
 
     private static void getDoctors(Context context) {
@@ -38,5 +39,12 @@ public class DoctorsController {
     private static void getDoctorLocations(Context context) {
         List<String> locations = DoctorsService.getDoctorLocations();
         context.json(locations);
+    }
+
+    private static void findDoctors(Context context) {
+        String speciality = context.queryParam("speciality");
+        String location = context.queryParam("officeLocation");
+        List<Map<String, Object>> doctors = DoctorsService.findDoctors(speciality, location);
+        context.json(doctors);
     }
 }

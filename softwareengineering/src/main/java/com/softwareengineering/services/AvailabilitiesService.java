@@ -3,6 +3,7 @@ package com.softwareengineering.services;
 import java.util.List;
 import java.util.Map;
 import com.softwareengineering.models.Availability;
+import java.sql.Timestamp;
 
 public class AvailabilitiesService {
     public static List<Map<String, Object>> getDoctorAvailabilities (int DoctorID) {
@@ -10,11 +11,9 @@ public class AvailabilitiesService {
         return availabilities;
     }
 
-    public static void setAvailability (java.sql.Timestamp date, java.sql.Timestamp timeFrom, java.sql.Timestamp timeTo, int doctorID) {
+    public static void setAvailability (Timestamp slot, int doctorID) {
         Availability availability = new Availability();
-        availability.set("date", date);
-        availability.set("timeFrom", timeFrom);
-        availability.set("timeTo", timeTo);
+        availability.set("timeFrom", slot.toString());
         availability.set("doctorID", doctorID);
         availability.saveIt();
     }

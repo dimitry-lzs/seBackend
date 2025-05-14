@@ -28,4 +28,9 @@ public class DoctorsService {
             .map(u -> u.getString("officeLocation"))
             .collect(Collectors.toList());
     }
+
+    public static List<Map<String, Object>> findDoctors(String speciality, String officeLocation) {
+        String sql = "SELECT * FROM users WHERE userType = ? AND speciality = ? AND officeLocation = ?";
+        return User.findBySQL(sql, "DOCTOR", speciality, officeLocation).toMaps();
+    }
 }

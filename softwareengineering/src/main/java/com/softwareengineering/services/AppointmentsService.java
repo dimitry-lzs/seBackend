@@ -13,6 +13,13 @@ public class AppointmentsService {
         return appointments;
     }
 
+    public static List<Map<String, Object>> getDoctorAppointments(int doctorID, java.sql.Timestamp date) {
+
+        List<Map<String, Object>> appointments = Appointment.where("doctorID = ? AND date >= ?", doctorID, date).toMaps();
+
+        return appointments;
+    }
+
     public static List<Map<String, Object>> getPatientAppointments(int patientID) {
 
         List<Map<String, Object>> appointments = Appointment.where("patientID = ?", patientID).toMaps();
@@ -20,12 +27,29 @@ public class AppointmentsService {
         return appointments;
     }
 
-    public static void setAppointment(int doctorID, int patientID, java.sql.Timestamp date, Status status) {
+    public static List<Map<String, Object>> getPatientAppointments(int patientID, java.sql.Timestamp date) {
+
+        List<Map<String, Object>> appointments = Appointment.where("patientID = ? AND date >= ?", patientID, date).toMaps();
+
+        return appointments;
+    }
+
+    public static void setAppointment(int doctorID, int patientID, int slotID, Status status) {
         Appointment appointment = new Appointment();
         appointment.set("doctorID", doctorID);
         appointment.set("patientID", patientID);
-        appointment.set("date", date);
+        appointment.set("slotID", slotID);
         appointment.set("status", status.toString());
+        appointment.saveIt();
+    }
+
+    public static void setAppointment(int doctorID, int patientID, int slotID, Status status, String reason) {
+        Appointment appointment = new Appointment();
+        appointment.set("doctorID", doctorID);
+        appointment.set("patientID", patientID);
+        appointment.set("slotID", slotID);
+        appointment.set("status", status.toString());
+        appointment.set("reason", reason);
         appointment.saveIt();
     }
 

@@ -1,0 +1,16 @@
+meta {
+  name: Find-Doctors
+  type: http
+  seq: 19
+}
+
+get {
+  url: http://localhost:7070/find-doctors?officeLocation=Athens&speciality=DERMATOLOGIST
+  body: none
+  auth: inherit
+}
+
+params:query {
+  officeLocation: Athens
+  speciality: DERMATOLOGIST
+}
