@@ -46,4 +46,24 @@ public class UserService {
 
         return user;
     }
+
+    public static boolean updateAvatar(int id, String avatar) {
+        User user = User.findFirst("id = ?", id);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        if (avatar == null || avatar.isEmpty()) {
+            throw new IllegalArgumentException("Avatar is required");
+        }
+        user.set("avatar", avatar);
+        return user.saveIt();
+    }
+
+    public static String getAvatar(int id) {
+        User user = User.findFirst("id = ?", id);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        return user.getString("avatar");
+    }
 }

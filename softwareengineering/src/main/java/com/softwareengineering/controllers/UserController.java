@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.softwareengineering.services.UserService;
+import com.softwareengineering.dto.AvatarBody;
 import com.softwareengineering.dto.LoginBody;
 import com.softwareengineering.dto.RegisterBody;
 import com.softwareengineering.models.User;
@@ -18,6 +19,8 @@ public class UserController {
         app.post("/login", UserController::loginUser);
         app.get("/login", UserController::getLogin);
         app.get("/logout", UserController::logoutUser);
+        app.post("/update-avatar", UserController::updateAvatar);
+        app.get("/avatar", UserController::getAvatar);
     }
 
     private static void registerUser(Context context) {
@@ -55,6 +58,35 @@ public class UserController {
 
         User loggedInUser = User.findFirst("id = ?", id);
         context.status(200).json(getUserData(loggedInUser));
+    }
+
+    private static void updateAvatar(Context context) {
+        int id = context.sessionAttribute("id");
+        if (id == 0) {
+            context.status(401).json(Map.of("message", "Unauthorized"));
+            return;
+        }
+        boolean updated = UserService.updateAvatar(id, context.bodyAsClass(AvatarBody.class).avatar);
+        if (!updated) {
+            context.status(400).json(Map.of("message", "Failed to update avatar"));
+            return;
+        }
+        context.status(200).json(Map.of("message", "Avatar updated successfully"));
+    }
+
+    private static void getAvatar(Context context) {
+        int id = context.sessionAttribute("id");
+        if (id == 0) {
+            context.status(401).json(Map.of("message", "Unauthorized"));
+            return;
+        }
+
+        String avatar = UserService.getAvatar(id);
+
+        if (avatar == null) {
+            avatar = "";
+        }
+        context.status(200).json(Map.of("avatar", avatar));
     }
 
     private static void logoutUser(Context context) {
