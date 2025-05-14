@@ -5,50 +5,45 @@ import org.javalite.activejdbc.annotations.Table;
 
 @Table("ratings")
 public class Rating extends Model {
-    private int stars;
-    private String comments;
-    private int doctorId;
-    private int patientId;
-
     public Rating(int stars, String comments, int doctorId, int patientId) {
-        this.set("stars", stars);
-        this.set("comments", comments);
-        this.set("doctorId", doctorId);
-        this.set("patientId", patientId);
+        set("stars", stars);
+        set("comments", comments);
+        set("doctorId", doctorId);
+        set("patientId", patientId);
     }
 
-    public Rating(){
+    public Rating() {
     }
 
-    public float getStars() {
-        return stars;
+    public int getStars() {
+        return (int) get("stars");
     }
 
     public void setStars(int stars) {
-        this.set("stars", stars);
+        set("stars", stars);
     }
 
     public String getComments() {
-        return comments;
+        return (String) get("comments");
     }
 
     public void setComments(String comments) {
-        this.set("comments", comments);
+        set("comments", comments);
     }
 
     public int getDoctorId() {
-        return doctorId;
+        return (int) get("doctorId");
     }
 
     public void setDoctorId(int doctorId) {
-        this.set("doctorId", doctorId);
+        set("doctorId", doctorId);
     }
 
     public int getPatientId() {
-        return patientId;
+        return (int) get("patientId");
     }
 
     public void setPatientId(int patientId) {
-        this.set("patientId", patientId);
+        set("patientId", patientId);
     }
 }
