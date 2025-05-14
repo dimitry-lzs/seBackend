@@ -7,6 +7,7 @@ import com.softwareengineering.controllers.AvailabilitiesController;
 import com.softwareengineering.controllers.DiagnosesController;
 import com.softwareengineering.controllers.RatingsController;
 import com.softwareengineering.controllers.UserController;
+import com.softwareengineering.controllers.PatientsController;
 import com.softwareengineering.controllers.DoctorsController;
 import com.softwareengineering.services.UserService;
 import com.softwareengineering.models.*;
@@ -36,6 +37,7 @@ public class Main {
         AvailabilitiesController.init(app);
         DiagnosesController.init(app);
         DoctorsController.init(app);
+        PatientsController.init(app);
 
         app.get("/", ctx -> ctx.result("Software Engineering Backend"));
         app.get("/test", ctx -> ctx.json(UserService.getUsers()));
