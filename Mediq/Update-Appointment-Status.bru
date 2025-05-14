@@ -1,0 +1,18 @@
+meta {
+  name: Update-Appointment-Status
+  type: http
+  seq: 8
+}
+
+patch {
+  url: http://localhost:7070/update-appointment-status
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "appointmentID":"1",
+    "status":"CANCELLED"
+  }
+}

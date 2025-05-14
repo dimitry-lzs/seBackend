@@ -1,0 +1,22 @@
+meta {
+  name: Set-Appointment
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:7070/set-appointment
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "doctorID": 2,
+    "patientID": 1,
+    "timeFrom": "2025-05-12T09:00:00",
+    "timeTo": "2025-05-12T10:00:00",
+    "date": "2025-05-12T00:00:00",
+    "status": "COMPLETED"
+  }
+}

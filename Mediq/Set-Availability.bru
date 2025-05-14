@@ -1,0 +1,20 @@
+meta {
+  name: Set-Availability
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:7070/set-availability
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "date": "2025-05-12T00:00:00",
+    "timeFrom": "2025-05-12T09:00:00",
+    "timeTo": "2025-05-12T12:00:00",
+    "doctorID": 2
+  }
+}

@@ -1,0 +1,22 @@
+meta {
+  name: Register
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:7070/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "fullName": "Mister Doctor",
+    "userType": "DOCTOR",
+    "email": "mail@doctor.com",
+    "password": "12r",
+    "speciality": "CARDIOLOGIST",
+    "licenceID" : "666"
+  }
+}
