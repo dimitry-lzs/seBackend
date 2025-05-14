@@ -34,10 +34,16 @@ public class UserService {
     }
 
     public static User loginUser(String email, String password) {
-        User user = User.findFirst("email = ? AND password = ?", email, password);
+        User user = User.findFirst("email = ?", email);
+
         if (user == null) {
+            throw new IllegalArgumentException("Invalid email");
+        }
+
+        if (!password.equals(user.getString("password"))) {
             throw new IllegalArgumentException("Invalid email or password");
         }
+
         return user;
     }
 }
