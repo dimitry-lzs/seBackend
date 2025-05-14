@@ -2,6 +2,7 @@ package com.softwareengineering.dto;
 
 import com.softwareengineering.models.enums.Speciality;
 import com.softwareengineering.models.enums.UserTypeEnum;
+import com.softwareengineering.models.enums.City;
 
 public class RegisterBody {
     public UserTypeEnum userType;
@@ -12,6 +13,6 @@ public class RegisterBody {
     public String amka;
     public String licenceID;
     public Speciality speciality;
-    public String officeLocation;
+    public City officeLocation;
     public String bio;
 }

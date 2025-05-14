@@ -35,15 +35,15 @@ public class AppointmentsController {
             context.status(400).json(Map.of("error", "Doctor ID and Patient ID cannot be null"));
             return;
         }
-        if (body.timeFrom == null || body.timeTo == null || body.date == null) {
-            context.status(400).json(Map.of("error", "Time and date cannot be null"));
+        if (body.date == null) {
+            context.status(400).json(Map.of("error", "date cannot be null"));
             return;
         }
         if (body.status == null) {
             context.status(400).json(Map.of("error", "Status cannot be null"));
             return;
         }
-        AppointmentsService.setAppointment(body.doctorID, body.patientID, body.timeFrom, body.timeTo, body.date, body.status);
+        AppointmentsService.setAppointment(body.doctorID, body.patientID, body.date, body.status);
         context.status(201);
     }
 

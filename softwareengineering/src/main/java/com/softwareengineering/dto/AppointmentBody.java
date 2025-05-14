@@ -9,7 +9,5 @@ public class AppointmentBody {
     public Integer doctorID;
     public Integer patientID;
     public Status status;
-    public Timestamp timeFrom;
-    public Timestamp timeTo;
     public Timestamp date;
 }

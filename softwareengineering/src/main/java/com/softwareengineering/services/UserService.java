@@ -28,7 +28,7 @@ public class UserService {
             Doctor doctor = new Doctor(user);
             doctor.setLicenceID(body.licenceID);
             doctor.setSpeciality(body.speciality);
-            doctor.setOfficeLocation(body.officeLocation);
+            doctor.setOfficeLocation(body.officeLocation.toString());
             doctor.setBio(body.bio);
             return doctor.saveIt();
         }
