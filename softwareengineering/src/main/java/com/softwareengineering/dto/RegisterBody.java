@@ -13,4 +13,5 @@ public class RegisterBody {
     public String licenceID;
     public Speciality speciality;
     public String officeLocation;
+    public String bio;
 }

@@ -21,6 +21,7 @@ public class UserController {
         app.get("/logout", UserController::logoutUser);
         app.post("/update-avatar", UserController::updateAvatar);
         app.get("/avatar", UserController::getAvatar);
+        app.post("/update-user", UserController::updateUser);
     }
 
     private static void registerUser(Context context) {
@@ -105,8 +106,25 @@ public class UserController {
         addIfNotNull(userData, "amka", user.get("amka"));
         addIfNotNull(userData, "licenceID", user.get("licenceID"));
         addIfNotNull(userData, "speciality", user.get("speciality"));
+        addIfNotNull(userData, "officeLocation", user.get("officeLocation"));
+        addIfNotNull(userData, "bio", user.get("bio"));
 
         return userData;
+    }
+
+    private static void updateUser(Context context) {
+        int id = context.sessionAttribute("id");
+        if (id == 0 || context.sessionAttribute("id") == null) {
+            context.status(401).json(Map.of("message", "Unauthorized"));
+            return;
+        }
+        RegisterBody userData = context.bodyAsClass(RegisterBody.class);
+        boolean updated = UserService.updateUser(id, userData);
+        if (!updated) {
+            context.status(400).json(Map.of("message", "Failed to update user"));
+            return;
+        }
+        context.status(200).json(Map.of("message", "User updated successfully"));
     }
 
     private static void getUsers(Context context) {
