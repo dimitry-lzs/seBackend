@@ -1,0 +1,15 @@
+meta {
+  name: Cancel-Availability
+  type: http
+  seq: 20
+}
+
+delete {
+  url: http://localhost:7070/cancel-availability?availabilityID=2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  availabilityID: 2
+}

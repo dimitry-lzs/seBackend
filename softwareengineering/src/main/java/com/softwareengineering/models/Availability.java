@@ -12,6 +12,7 @@ import org.javalite.activejdbc.annotations.Table;
 })
 @Table("availabilities")
 public class Availability extends Model {
+
     public Availability(Timestamp date, Time timeFrom, Time timeTo, int doctorID) {
         this.set("timeTo", timeTo);
         this.set("timeFrom", timeFrom);
@@ -20,6 +21,11 @@ public class Availability extends Model {
     }
 
     public Availability(){}
+
+    @Override
+    public String getIdName() {
+        return "availabilityID";
+    }
 
     public void setDate(Timestamp date) {
         this.set("date", date);
