@@ -10,13 +10,20 @@ import java.util.Map;
 
 public class RatingsController {
     public static void init(Javalin app) {
-        app.get("/doctor-ratings", RatingsController::getRatings);
+        app.get("/doctor-ratings", RatingsController::getRatings); // endpoint for a patient to get ratings of a doctor
+        app.get("/get-my-ratings", RatingsController::getMyRatings); // endpoint for a doctor to get their own ratings
         app.post("/set-rating", RatingsController::setRating);
     }
 
 
     private static void getRatings(Context context) {
         int doctorID = Integer.parseInt(context.queryParam("doctorID"));
+        List<Map<String, Object>> ratings = RatingsService.getRatings(doctorID);
+        context.json(ratings);
+    }
+
+    private static void getMyRatings(Context context) {
+        int doctorID = context.sessionAttribute("id");
         List<Map<String, Object>> ratings = RatingsService.getRatings(doctorID);
         context.json(ratings);
     }

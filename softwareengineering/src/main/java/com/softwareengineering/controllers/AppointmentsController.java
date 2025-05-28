@@ -19,27 +19,27 @@ public class AppointmentsController {
     }
 
     private static void getDoctorAppointments(Context context) {
-        int doctorID = Integer.parseInt(context.queryParam("doctorID"));
+        int doctorID = context.sessionAttribute("id");
         if (context.queryParam("dateFrom") == null) {
             List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID);
             context.json(appointments);
             return;
         } else {
             Timestamp dateFrom = Timestamp.valueOf(context.queryParam("dateFrom"));
-            List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID, dateFrom);
+            List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID, dateFrom); //needs fixing
             context.json(appointments);
         }
     }
 
     private static void getPatientAppointments(Context context) {
-        int patientID = Integer.parseInt(context.queryParam("patientID"));
+        int patientID = context.sessionAttribute("id");
         if (context.queryParam("dateFrom") == null) {
             List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID);
             context.json(appointments);
             return;
         } else {
             Timestamp dateFrom = Timestamp.valueOf(context.queryParam("dateFrom"));
-            List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID, dateFrom);
+            List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID, dateFrom); //needs fixing
             context.json(appointments);
         }
     }
