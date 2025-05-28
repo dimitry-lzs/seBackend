@@ -10,5 +10,6 @@ CREATE TABLE
         licenceID text,
         speciality text,
         bio text,
-        officeLocation text
+        officeLocation text,
+        avatar text,
     );

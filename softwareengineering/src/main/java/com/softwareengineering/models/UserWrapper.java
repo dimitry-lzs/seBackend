@@ -41,6 +41,14 @@ public class UserWrapper {
         return user.get("phone").toString();
     }
 
+    public void setAvatar(String avatar) {
+        user.set("avatar", avatar);
+    }
+
+    public String getAvatar() {
+        return user.get("avatar").toString();
+    }
+
     public UserTypeEnum getType() {
         return user.getType();
     }

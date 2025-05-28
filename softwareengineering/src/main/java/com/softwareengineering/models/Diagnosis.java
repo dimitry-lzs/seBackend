@@ -5,10 +5,6 @@ import org.javalite.activejdbc.annotations.Table;
 
 @Table("diagnoses")
 public class Diagnosis extends Model {
-    private int id;
-    private String name; //decease name
-    private String details;
-
     public Diagnosis(int id, String name, String details) {
         this.set("id", id);
         this.set("name", name);
@@ -19,26 +15,26 @@ public class Diagnosis extends Model {
     }
 
     public int getDiagnosisId() {
-        return id;
+        return (int) this.get("id");
     }
 
     public void setId(int id) {
-        this.set("id", id);
+        set("id", id);
     }
 
     public String getName() {
-        return name;
+        return (String) get("name");
     }
 
     public void setName(String name) {
-        this.set("name", name);
+        set("name", name);
     }
 
     public String getDetails() {
-        return details;
+        return (String) get("details");
     }
 
     public void setDetails(String details) {
-        this.set("details", details);
+        set("details", details);
     }
 }

@@ -9,9 +9,6 @@ import com.softwareengineering.controllers.RatingsController;
 import com.softwareengineering.controllers.UserController;
 import com.softwareengineering.controllers.PatientsController;
 import com.softwareengineering.controllers.DoctorsController;
-import com.softwareengineering.services.UserService;
-import com.softwareengineering.models.*;
-import java.sql.Timestamp;
 
 import io.javalin.Javalin;
 
@@ -40,13 +37,5 @@ public class Main {
         PatientsController.init(app);
 
         app.get("/", ctx -> ctx.result("Software Engineering Backend"));
-        app.get("/test", ctx -> ctx.json(UserService.getUsers()));
-         app.get("/test2", ctx -> {
-            Appointment appointment = new Appointment(null, null, null, null, 0, 0);
-            appointment.set("date", new Timestamp(System.currentTimeMillis()));
-            appointment.saveIt();
-            ctx.json(Appointment.findAll().toMaps());
-        });
-
     }
 }
