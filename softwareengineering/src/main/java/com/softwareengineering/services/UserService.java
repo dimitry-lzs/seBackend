@@ -88,7 +88,7 @@ public class UserService {
         if (body.speciality != null) {
             user.set("speciality", body.speciality);
         }
-        if (body.officeLocation != null && !body.officeLocation.isEmpty()) {
+        if (body.officeLocation != null && body.officeLocation != null) {
             user.set("officeLocation", body.officeLocation);
         }
         if (body.bio != null && !body.bio.isEmpty()) {
