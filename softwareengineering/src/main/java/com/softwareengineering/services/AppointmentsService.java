@@ -13,9 +13,9 @@ public class AppointmentsService {
         return appointments;
     }
 
-    public static List<Map<String, Object>> getDoctorAppointments(int doctorID, java.sql.Timestamp date) {
+    public static List<Map<String, Object>> getDoctorAppointments(int doctorID, Status status) {
 
-        List<Map<String, Object>> appointments = Appointment.where("doctorID = ? AND date >= ?", doctorID, date)
+        List<Map<String, Object>> appointments = Appointment.where("doctorID = ? AND status >= ?", doctorID, status.toString())
                 .toMaps();
 
         return appointments;
@@ -28,9 +28,9 @@ public class AppointmentsService {
         return appointments;
     }
 
-    public static List<Map<String, Object>> getPatientAppointments(int patientID, java.sql.Timestamp date) {
+    public static List<Map<String, Object>> getPatientAppointments(int patientID, Status status) {
 
-        List<Map<String, Object>> appointments = Appointment.where("patientID = ? AND date >= ?", patientID, date)
+        List<Map<String, Object>> appointments = Appointment.where("patientID = ? AND status >= ?", patientID, status.toString())
                 .toMaps();
 
         return appointments;
