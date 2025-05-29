@@ -4,8 +4,6 @@ import io.javalin.Javalin;
 
 import com.softwareengineering.services.AvailabilitiesService;
 import com.softwareengineering.dto.AvailabilityBatchBody;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import java.sql.Timestamp;
 import java.util.List;
