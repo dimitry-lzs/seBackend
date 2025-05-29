@@ -7,11 +7,10 @@ import com.softwareengineering.models.Availability;
 import java.sql.Timestamp;
 
 public class AvailabilitiesService {
-    public static List<Map<String, Object>> getDoctorAvailabilities(int DoctorID, String dateNow) {
+    public static List<Map<String, Object>> getDoctorAvailabilities(int DoctorID) {
         List<Map<String, Object>> availabilities = Availability
-                .where("doctorID = ? AND timeFrom >= ?", DoctorID, dateNow).toMaps();
+                .where("doctorID = ? AND free >= ?", DoctorID, true).toMaps();
         return availabilities;
-        //na deixnei mono ta free slots
     }
 
     public static void setAvailability(Timestamp slot, int doctorID) {

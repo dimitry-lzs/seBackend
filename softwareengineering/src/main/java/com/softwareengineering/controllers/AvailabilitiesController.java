@@ -21,9 +21,7 @@ public class AvailabilitiesController {
 
     private static void getDoctorAvailabilities(Context context) {
         int doctorID = Integer.parseInt(context.queryParam("doctorID"));
-        LocalDateTime now = LocalDateTime.now();
-        String dateNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
-        List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorID, dateNow);
+        List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorID);
         context.json(availabilities);
     }
 
