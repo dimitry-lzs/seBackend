@@ -16,7 +16,7 @@ public class AvailabilitiesController {
     public static void init(Javalin app) {
         app.get("/doctor-availabilities", AvailabilitiesController::getDoctorAvailabilities);
         app.post("/set-availability", AvailabilitiesController::setAvailability);
-        app.delete("/cancel-availability", AvailabilitiesController::cancelAvailability);
+        app.patch("/cancel-availability", AvailabilitiesController::cancelAvailability);
     }
 
     private static void getDoctorAvailabilities(Context context) {
@@ -37,16 +37,12 @@ public class AvailabilitiesController {
             AvailabilitiesService.setAvailability(slot, body.doctorID);
             context.status(201).json(Map.of("message", "Availability set successfully"));
         }
-        
+
     }
 
     private static void cancelAvailability(Context context) {
         int availabilityID = Integer.parseInt(context.queryParam("availabilityID"));
-        System.out.println("STOP POINT");
-        if (AvailabilitiesService.cancelAvailability(availabilityID)) {
-            context.status(200).json(Map.of("message", "Availability cancelled successfully"));
-        } else {
-            context.status(404).json(Map.of("error", "Availability not found"));
-        }
+        AvailabilitiesService.updateAvailability(availabilityID, false);
+        context.status(200).json(Map.of("message", "Availability cancelled successfully"));
     }
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.softwareengineering.dto.AppointmentBody;
 import com.softwareengineering.services.AppointmentsService;
+
 import io.javalin.Context;
 
 public class AppointmentsController {
@@ -15,7 +16,7 @@ public class AppointmentsController {
         app.get("/doctor-appointments", AppointmentsController::getDoctorAppointments);
         app.get("/patient-appointments", AppointmentsController::getPatientAppointments);
         app.post("set-appointment", AppointmentsController::setAppointment);
-        app.patch("update-appointment-status", AppointmentsController::updateAppointmentStatus);
+        app.patch("cancel-appointment", AppointmentsController::cancelAppointment);
     }
 
     private static void getDoctorAppointments(Context context) {
@@ -26,7 +27,8 @@ public class AppointmentsController {
             return;
         } else {
             Timestamp dateFrom = Timestamp.valueOf(context.queryParam("dateFrom"));
-            List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID, dateFrom); //needs fixing
+            List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID, dateFrom); // needs
+                                                                                                                    // fixing
             context.json(appointments);
         }
     }
@@ -39,7 +41,8 @@ public class AppointmentsController {
             return;
         } else {
             Timestamp dateFrom = Timestamp.valueOf(context.queryParam("dateFrom"));
-            List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID, dateFrom); //needs fixing
+            List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID, dateFrom); // needs
+                                                                                                                      // fixing
             context.json(appointments);
         }
     }
@@ -68,17 +71,14 @@ public class AppointmentsController {
         }
     }
 
-    private static void updateAppointmentStatus(Context context) {
+    private static void cancelAppointment(Context context) {
         AppointmentBody body = context.bodyAsClass(AppointmentBody.class);
         if (body.appointmentID == null) {
             context.status(400).json(Map.of("error", "Appointment ID cannot be null"));
             return;
+        } else {
+            AppointmentsService.cancelAppointment(body.appointmentID);
+            context.status(200);
         }
-        if (body.status == null) {
-            context.status(400).json(Map.of("error", "Status cannot be null"));
-            return;
-        }
-        AppointmentsService.updateAppointmentStatus(body.appointmentID, body.status);
-        context.status(200);
     }
 }
