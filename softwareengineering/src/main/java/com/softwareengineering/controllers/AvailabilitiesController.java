@@ -4,8 +4,6 @@ import io.javalin.Javalin;
 
 import com.softwareengineering.services.AvailabilitiesService;
 import com.softwareengineering.dto.AvailabilityBatchBody;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -16,14 +14,12 @@ public class AvailabilitiesController {
     public static void init(Javalin app) {
         app.get("/doctor-availabilities", AvailabilitiesController::getDoctorAvailabilities);
         app.post("/set-availability", AvailabilitiesController::setAvailability);
-        app.delete("/cancel-availability", AvailabilitiesController::cancelAvailability);
+        app.patch("/cancel-availability", AvailabilitiesController::cancelAvailability);
     }
 
     private static void getDoctorAvailabilities(Context context) {
         int doctorID = Integer.parseInt(context.queryParam("doctorID"));
-        LocalDateTime now = LocalDateTime.now();
-        String dateNow = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
-        List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorID, dateNow);
+        List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorID);
         context.json(availabilities);
     }
 
@@ -37,16 +33,12 @@ public class AvailabilitiesController {
             AvailabilitiesService.setAvailability(slot, body.doctorID);
             context.status(201).json(Map.of("message", "Availability set successfully"));
         }
-        
+
     }
 
     private static void cancelAvailability(Context context) {
         int availabilityID = Integer.parseInt(context.queryParam("availabilityID"));
-        System.out.println("STOP POINT");
-        if (AvailabilitiesService.cancelAvailability(availabilityID)) {
-            context.status(200).json(Map.of("message", "Availability cancelled successfully"));
-        } else {
-            context.status(404).json(Map.of("error", "Availability not found"));
-        }
+        AvailabilitiesService.updateAvailability(availabilityID, false);
+        context.status(200).json(Map.of("message", "Availability cancelled successfully"));
     }
 }

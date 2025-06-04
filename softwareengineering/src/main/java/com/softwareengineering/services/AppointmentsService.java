@@ -13,9 +13,10 @@ public class AppointmentsService {
         return appointments;
     }
 
-    public static List<Map<String, Object>> getDoctorAppointments(int doctorID, java.sql.Timestamp date) {
+    public static List<Map<String, Object>> getDoctorAppointments(int doctorID, Status status) {
 
-        List<Map<String, Object>> appointments = Appointment.where("doctorID = ? AND date >= ?", doctorID, date).toMaps();
+        List<Map<String, Object>> appointments = Appointment.where("doctorID = ? AND status >= ?", doctorID, status.toString())
+                .toMaps();
 
         return appointments;
     }
@@ -27,9 +28,10 @@ public class AppointmentsService {
         return appointments;
     }
 
-    public static List<Map<String, Object>> getPatientAppointments(int patientID, java.sql.Timestamp date) {
+    public static List<Map<String, Object>> getPatientAppointments(int patientID, Status status) {
 
-        List<Map<String, Object>> appointments = Appointment.where("patientID = ? AND date >= ?", patientID, date).toMaps();
+        List<Map<String, Object>> appointments = Appointment.where("patientID = ? AND status >= ?", patientID, status.toString())
+                .toMaps();
 
         return appointments;
     }
@@ -41,6 +43,7 @@ public class AppointmentsService {
         appointment.set("slotID", slotID);
         appointment.set("status", status.toString());
         appointment.saveIt();
+        AvailabilitiesService.updateAvailability(slotID, false);
     }
 
     public static void setAppointment(int doctorID, int patientID, int slotID, Status status, String reason) {
@@ -51,12 +54,19 @@ public class AppointmentsService {
         appointment.set("status", status.toString());
         appointment.set("reason", reason);
         appointment.saveIt();
+        AvailabilitiesService.updateAvailability(slotID, false);
     }
 
-    public static void updateAppointmentStatus(int appointmentID, Status status) {
-        int rowsUpdated = Appointment.update("status = ?", "appointmentID = ?", status.toString(), appointmentID);
+    public static void cancelAppointment(int appointmentID) {
+        int rowsUpdated = Appointment.update("status = ?",
+                "appointmentID = ?",
+                Status.CANCELLED.toString(),
+                appointmentID);
         if (rowsUpdated == 0) {
             throw new IllegalArgumentException("Appointment with ID " + appointmentID + " not found.");
+        } else {
+            AvailabilitiesService.updateAvailability(
+                    Appointment.findFirst("appointmentID = ?", appointmentID).getInteger("slotID"), true);
         }
     }
 }

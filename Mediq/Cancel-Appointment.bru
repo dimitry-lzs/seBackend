@@ -1,0 +1,17 @@
+meta {
+  name: Cancel-Appointment
+  type: http
+  seq: 24
+}
+
+patch {
+  url: http://localhost:7070/cancel-appointment
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "appointmentID" : "3"
+  }
+}
