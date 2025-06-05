@@ -1,0 +1,15 @@
+meta {
+  name: Doctor-Appointments-By-Status
+  type: http
+  seq: 28
+}
+
+get {
+  url: http://localhost:7070/doctor-appointments-by-status?statuses=["PENDING","CANCELLED"]
+  body: none
+  auth: inherit
+}
+
+params:query {
+  statuses: ["PENDING","CANCELLED"]
+}
