@@ -1,0 +1,15 @@
+meta {
+  name: Appointment-Details
+  type: http
+  seq: 27
+}
+
+get {
+  url: http://localhost:7070/view-appointment-details?appointmentID=2
+  body: none
+  auth: inherit
+}
+
+params:query {
+  appointmentID: 2
+}

@@ -160,4 +160,35 @@ public class AppointmentsService {
                     Appointment.findFirst("appointmentID = ?", appointmentID).getInteger("slotID"), true);
         }
     }
+
+    public static Map<String, Object> getAppointmentDetails(int appointmentID) {
+        Appointment appointment = Appointment.findFirst("appointmentID = ?", appointmentID);
+        if (appointment == null) {
+            throw new IllegalArgumentException("Appointment with ID " + appointmentID + " not found.");
+        }
+        Map<String, Object> appointmentData = appointment.toMap();
+
+        // Get doctor information
+        int doctorID = appointment.getInteger("doctorID");
+        User doctor = User.findFirst("id = ?", doctorID);
+        if (doctor != null) {
+            appointmentData.put("doctor_name", doctor.getString("fullName"));
+            appointmentData.put("doctor_specialty", doctor.getString("speciality"));
+            appointmentData.put("doctor_phone", doctor.getString("phone"));
+            appointmentData.put("doctor_email", doctor.getString("email"));
+            appointmentData.put("doctor_officeLocation", doctor.getString("officeLocation"));
+            appointmentData.put("doctor_bio", doctor.getString("bio"));
+            appointmentData.put("doctor_licenceID", doctor.getString("licenceID"));
+        }
+
+        // Get availability information
+        int slotID = appointment.getInteger("slotID");
+        Availability availability = Availability.findFirst("availabilityID = ?", slotID);
+        if (availability != null) {
+            appointmentData.put("slot_id", availability.getInteger("availabilityID"));
+            appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+        }
+
+        return appointmentData;
+    }
 }
