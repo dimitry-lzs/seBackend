@@ -3,6 +3,7 @@ package com.softwareengineering.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import com.softwareengineering.models.Appointment;
 import com.softwareengineering.models.Availability;
 import com.softwareengineering.models.User;
@@ -59,7 +60,7 @@ public class AppointmentsService {
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
                 appointmentData.put("slot_id", availability.getInteger("availabilityID"));
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
@@ -88,7 +89,7 @@ public class AppointmentsService {
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
                 appointmentData.put("slot_id", availability.getInteger("availabilityID"));
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
