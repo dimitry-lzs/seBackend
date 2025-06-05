@@ -2,9 +2,11 @@ package com.softwareengineering.controllers;
 
 import io.javalin.Javalin;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 import com.softwareengineering.dto.AppointmentBody;
 import com.softwareengineering.models.enums.Status;
@@ -14,9 +16,7 @@ import io.javalin.Context;
 
 public class AppointmentsController {
     public static void init(Javalin app) {
-        app.get("/upcoming-doctor-appointments", AppointmentsController::getUpcomingDoctorAppointments);
         app.get("/doctor-appointments", AppointmentsController::getDoctorAppointments);
-        app.get("/upcoming-patient-appointments", AppointmentsController::getUpcomingPatientAppointments);
         app.get("/patient-appointments", AppointmentsController::getPatientAppointments);
         app.get("/view-appointment-details", AppointmentsController::viewAppointmentDetails);
         app.post("/set-appointment", AppointmentsController::setAppointment);
@@ -25,32 +25,58 @@ public class AppointmentsController {
         app.get("/patient-appointments-by-status", AppointmentsController::getPatientAppointmentsByStatus);
     }
 
-    private static void getUpcomingDoctorAppointments(Context context) {
-        int doctorID = context.sessionAttribute("id");
-        List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID, Status.PENDING);
-        context.json(appointments);
-        return;
-    }
-
-    private static void getUpcomingPatientAppointments(Context context) {
-        int patientID = context.sessionAttribute("id");
-        List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID, Status.PENDING);
-        context.json(appointments);
-        return;
-    }
-
     private static void getDoctorAppointments(Context context) {
         int doctorID = context.sessionAttribute("id");
-        List<Map<String, Object>> appointments = AppointmentsService.getDoctorAppointments(doctorID);
+        String dateParam = context.queryParam("date");
+
+        List<Map<String, Object>> appointments;
+
+        if (dateParam != null && !dateParam.isEmpty()) {
+            try {
+                // Try to parse ISO 8601 format (2023-05-15T12:00:00)
+                LocalDateTime localDateTime = LocalDateTime.parse(
+                        dateParam, java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                Timestamp date = Timestamp.valueOf(localDateTime);
+
+                appointments = AppointmentsService.getDoctorAppointmentsAfterDate(doctorID, date);
+            } catch (Exception e) {
+                context.status(400).json(Map.of("error",
+                        "Invalid date format. Use ISO 8601 format (YYYY-MM-DDThh:mm:ss)"));
+                return;
+            }
+        } else {
+            // No date filter, get all appointments
+            appointments = AppointmentsService.getDoctorAppointments(doctorID);
+        }
+
         context.json(appointments);
-        return;
     }
 
     private static void getPatientAppointments(Context context) {
         int patientID = context.sessionAttribute("id");
-        List<Map<String, Object>> appointments = AppointmentsService.getPatientAppointments(patientID);
+        String dateParam = context.queryParam("date");
+
+        List<Map<String, Object>> appointments;
+
+        if (dateParam != null && !dateParam.isEmpty()) {
+            try {
+                // Try to parse ISO 8601 format (2023-05-15T12:00:00)
+                LocalDateTime localDateTime = LocalDateTime.parse(
+                        dateParam, java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                Timestamp date = Timestamp.valueOf(localDateTime);
+
+                appointments = AppointmentsService.getPatientAppointmentsAfterDate(patientID, date);
+            } catch (Exception e) {
+                context.status(400).json(Map.of("error",
+                        "Invalid date format. Use ISO 8601 format (YYYY-MM-DDThh:mm:ss)"));
+                return;
+            }
+        } else {
+            // No date filter, get all appointments
+            appointments = AppointmentsService.getPatientAppointments(patientID);
+        }
+
         context.json(appointments);
-        return;
     }
 
     private static void getDoctorAppointmentsByStatus(Context context) {
