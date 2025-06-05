@@ -184,4 +184,103 @@ public class AppointmentsService {
 
         return appointmentData;
     }
+
+    public static List<Map<String, Object>> getDoctorAppointmentsByStatuses(int doctorID, List<Status> statuses) {
+        if (statuses == null || statuses.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // Build the query with placeholders for each status
+        StringBuilder queryBuilder = new StringBuilder("doctorID = ? AND (");
+        List<Object> params = new ArrayList<>();
+        params.add(doctorID);
+
+        for (int i = 0; i < statuses.size(); i++) {
+            if (i > 0) {
+                queryBuilder.append(" OR ");
+            }
+            queryBuilder.append("status = ?");
+            params.add(statuses.get(i).toString());
+        }
+        queryBuilder.append(")");
+
+        List<Appointment> appointments = Appointment.where(queryBuilder.toString(), params.toArray());
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = appointment.toMap();
+
+            // Get patient information - only name and phone
+            int patientID = appointment.getInteger("patientID");
+            User patient = User.findFirst("id = ?", patientID);
+            if (patient != null) {
+                appointmentData.put("patient_name", patient.getString("fullName"));
+                appointmentData.put("patient_phone", patient.getString("phone"));
+            }
+
+            // Get availability information
+            int slotID = appointment.getInteger("slotID");
+            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
+            if (availability != null) {
+                appointmentData.put("slot_id", availability.getInteger("availabilityID"));
+                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            }
+
+            result.add(appointmentData);
+        }
+
+        return result;
+    }
+
+    public static List<Map<String, Object>> getPatientAppointmentsByStatuses(int patientID, List<Status> statuses) {
+        if (statuses == null || statuses.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        // Build the query with placeholders for each status
+        StringBuilder queryBuilder = new StringBuilder("patientID = ? AND (");
+        List<Object> params = new ArrayList<>();
+        params.add(patientID);
+
+        for (int i = 0; i < statuses.size(); i++) {
+            if (i > 0) {
+                queryBuilder.append(" OR ");
+            }
+            queryBuilder.append("status = ?");
+            params.add(statuses.get(i).toString());
+        }
+        queryBuilder.append(")");
+
+        List<Appointment> appointments = Appointment.where(queryBuilder.toString(), params.toArray());
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = appointment.toMap();
+
+            // Get patient information - only name and phone
+            int doctorID = appointment.getInteger("doctorID");
+            User doctor = User.findFirst("id = ?", doctorID);
+            if (doctor != null) {
+                appointmentData.put("doctor_name", doctor.getString("fullName"));
+                appointmentData.put("doctor_specialty", doctor.getString("speciality"));
+                appointmentData.put("doctor_phone", doctor.getString("phone"));
+                appointmentData.put("doctor_email", doctor.getString("email"));
+                appointmentData.put("doctor_officeLocation", doctor.getString("officeLocation"));
+                appointmentData.put("doctor_bio", doctor.getString("bio"));
+                appointmentData.put("doctor_licenceID", doctor.getString("licenceID"));
+            }
+
+            // Get availability information
+            int slotID = appointment.getInteger("slotID");
+            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
+            if (availability != null) {
+                appointmentData.put("slot_id", availability.getInteger("availabilityID"));
+                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            }
+
+            result.add(appointmentData);
+        }
+
+        return result;
+    }
 }
