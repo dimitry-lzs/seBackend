@@ -2,9 +2,11 @@ package com.softwareengineering.controllers;
 
 import io.javalin.Javalin;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 import com.softwareengineering.dto.AppointmentBody;
 import com.softwareengineering.models.enums.Status;
@@ -25,47 +27,56 @@ public class AppointmentsController {
 
     private static void getDoctorAppointments(Context context) {
         int doctorID = context.sessionAttribute("id");
-
-        String statusParam = context.queryParam("status");
-
-        if (statusParam != null && Status.valueOf(statusParam.toUpperCase()) == null) {
-            context.status(400).json(Map.of("error", "Invalid status parameter"));
-            return;
-        }
+        String dateParam = context.queryParam("date");
 
         List<Map<String, Object>> appointments;
 
-        if (statusParam != null) {
-            appointments = AppointmentsService.getDoctorAppointments(doctorID,
-                    Status.valueOf(statusParam.toUpperCase()));
+        if (dateParam != null && !dateParam.isEmpty()) {
+            try {
+                // Try to parse ISO 8601 format (2023-05-15T12:00:00)
+                LocalDateTime localDateTime = LocalDateTime.parse(
+                        dateParam, java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                Timestamp date = Timestamp.valueOf(localDateTime);
+
+                appointments = AppointmentsService.getDoctorAppointmentsAfterDate(doctorID, date);
+            } catch (Exception e) {
+                context.status(400).json(Map.of("error",
+                        "Invalid date format. Use ISO 8601 format (YYYY-MM-DDThh:mm:ss)"));
+                return;
+            }
         } else {
+            // No date filter, get all appointments
             appointments = AppointmentsService.getDoctorAppointments(doctorID);
         }
 
         context.json(appointments);
-        return;
     }
 
     private static void getPatientAppointments(Context context) {
         int patientID = context.sessionAttribute("id");
-        String statusParam = context.queryParam("status");
-
-        if (statusParam != null && Status.valueOf(statusParam.toUpperCase()) == null) {
-            context.status(400).json(Map.of("error", "Invalid status parameter"));
-            return;
-        }
+        String dateParam = context.queryParam("date");
 
         List<Map<String, Object>> appointments;
 
-        if (statusParam != null) {
-            appointments = AppointmentsService.getPatientAppointments(patientID,
-                    Status.valueOf(statusParam.toUpperCase()));
+        if (dateParam != null && !dateParam.isEmpty()) {
+            try {
+                // Try to parse ISO 8601 format (2023-05-15T12:00:00)
+                LocalDateTime localDateTime = LocalDateTime.parse(
+                        dateParam, java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+                Timestamp date = Timestamp.valueOf(localDateTime);
+
+                appointments = AppointmentsService.getPatientAppointmentsAfterDate(patientID, date);
+            } catch (Exception e) {
+                context.status(400).json(Map.of("error",
+                        "Invalid date format. Use ISO 8601 format (YYYY-MM-DDThh:mm:ss)"));
+                return;
+            }
         } else {
+            // No date filter, get all appointments
             appointments = AppointmentsService.getPatientAppointments(patientID);
         }
 
         context.json(appointments);
-        return;
     }
 
     private static void getDoctorAppointmentsByStatus(Context context) {
