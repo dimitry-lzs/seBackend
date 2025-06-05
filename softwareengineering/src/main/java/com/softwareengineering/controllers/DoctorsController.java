@@ -11,7 +11,7 @@ public class DoctorsController {
     public static void init(Javalin app) {
         app.get("/doctors", DoctorsController::getDoctors);
         app.get("/doctors/{id}", DoctorsController::getDoctorByID);
-        app.get("/get-doctor-specialities", DoctorsController::getDoctorSpecialities);
+        app.get("/specialities", DoctorsController::getDoctorSpecialities);
         app.get("/get-doctor-locations", DoctorsController::getDoctorLocations);
         app.get("/find-doctors", DoctorsController::findDoctors);
     }
