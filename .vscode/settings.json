@@ -1,6 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
-    "window.title": "${activeRepositoryName} [${activeRepositoryBranchName}] - ${activeEditorShort}",
+    "window.title": "${activeRepositoryName} [${activeRepositoryBranchName}]${separator}${activeEditorShort}",
     "workbench.colorCustomizations": {
         "activityBar.background": "#0e1f17",
         "activityBar.foreground": "#b2dfd3",
