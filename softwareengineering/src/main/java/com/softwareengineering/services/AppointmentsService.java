@@ -179,7 +179,7 @@ public class AppointmentsService {
         Availability availability = Availability.findFirst("availabilityID = ?", slotID);
         if (availability != null) {
             appointmentData.put("slot_id", availability.getInteger("availabilityID"));
-            appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
         }
 
         return appointmentData;
