@@ -14,6 +14,7 @@ public class AppointmentsController {
     public static void init(Javalin app) {
         app.get("/doctor-appointments", AppointmentsController::getDoctorAppointments);
         app.get("/patient-appointments", AppointmentsController::getPatientAppointments);
+        app.get("/view-appointment-details", AppointmentsController::viewAppointmentDetails);
         app.post("set-appointment", AppointmentsController::setAppointment);
         app.patch("cancel-appointment", AppointmentsController::cancelAppointment);
     }
@@ -81,6 +82,21 @@ public class AppointmentsController {
         AppointmentsService.setAppointment(patientID, body.doctorID, body.slotID, body.status, body.reason);
         context.status(201);
         return;
+    }
+
+    private static void viewAppointmentDetails(Context context) {
+        String appointmentIDParam = context.queryParam("appointmentID");
+        if (appointmentIDParam == null) {
+            context.status(400).json(Map.of("error", "Appointment ID cannot be null"));
+            return;
+        }
+        int appointmentID = Integer.parseInt(appointmentIDParam);
+        Map<String, Object> appointmentDetails = AppointmentsService.getAppointmentDetails(appointmentID);
+        if (appointmentDetails == null) {
+            context.status(404).json(Map.of("error", "Appointment not found"));
+            return;
+        }
+        context.json(appointmentDetails);
     }
 
     private static void cancelAppointment(Context context) {
