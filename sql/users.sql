@@ -11,5 +11,6 @@ CREATE TABLE
         speciality text,
         bio text,
         officeLocation text,
+        rating real,
         avatar text,
     );

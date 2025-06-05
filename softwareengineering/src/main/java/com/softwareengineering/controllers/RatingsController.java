@@ -30,15 +30,17 @@ public class RatingsController {
 
     public static void setRating(Context context) {
         RatingBody body = context.bodyAsClass(RatingBody.class);
+        int patientID = context.sessionAttribute("id");
         if (body.stars < 1 || body.stars > 5) {
             context.status(400).json(Map.of("error", "Stars must be between 1 and 5"));
             return;
         }
-        if (body.doctorID == null || body.patientID == null) {
+        if (body.doctorID == null || patientID == 0) {
             context.status(400).json(Map.of("error", "Doctor ID and Patient ID cannot be null"));
             return;
         }
-        RatingsService.setRating(body.stars, body.comments, body.patientID, body.doctorID);
+        RatingsService.setRating(body.stars, body.comments, patientID, body.doctorID);
+        RatingsService.calcRating(body.doctorID);
         context.status(201);
     }
 }
