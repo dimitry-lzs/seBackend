@@ -1,7 +1,7 @@
 package com.softwareengineering.controllers;
 
 import io.javalin.Javalin;
-import io.javalin.Context;
+import io.javalin.http.Context;
 import java.util.List;
 import java.util.Map;
 import com.softwareengineering.models.User;

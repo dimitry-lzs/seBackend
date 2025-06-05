@@ -1,3 +1,25 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "window.title": "${activeRepositoryName} [${activeRepositoryBranchName}] - ${activeEditorShort}",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#0d1e16",
+        "activityBar.foreground": "#b8e6d3",
+        "activityBarBadge.background": "#4a90e2",
+        "activityBarBadge.foreground": "#ffffff",
+        "statusBar.background": "#0d1e16",
+        "statusBar.foreground": "#b8e6d3",
+        "titleBar.activeBackground": "#1a3d32",
+        "titleBar.activeForeground": "#f0f9f6",
+        "inlineChat.foreground": "#ffffff",
+        "editor.background": "#020504",
+        "editor.foreground": "#e8f4f0",
+        "editor.lineHighlightBackground": "#0d1e16",
+        "editor.selectionBackground": "#1a3d32",
+        "editor.selectionHighlightBackground": "#0d1e16",
+        "editor.findMatchBackground": "#4a90e2",
+        "editor.findMatchHighlightBackground": "#1a3d32",
+        "editorCursor.foreground": "#b8e6d3",
+        "editorLineNumber.foreground": "#5a8a73",
+        "editorLineNumber.activeForeground": "#b8e6d3",
+    }
 }

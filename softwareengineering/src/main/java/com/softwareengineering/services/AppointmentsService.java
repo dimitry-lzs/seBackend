@@ -15,7 +15,8 @@ public class AppointmentsService {
 
     public static List<Map<String, Object>> getDoctorAppointments(int doctorID, Status status) {
 
-        List<Map<String, Object>> appointments = Appointment.where("doctorID = ? AND status >= ?", doctorID, status.toString())
+        List<Map<String, Object>> appointments = Appointment
+                .where("doctorID = ? AND status >= ?", doctorID, status.toString())
                 .toMaps();
 
         return appointments;
@@ -30,29 +31,22 @@ public class AppointmentsService {
 
     public static List<Map<String, Object>> getPatientAppointments(int patientID, Status status) {
 
-        List<Map<String, Object>> appointments = Appointment.where("patientID = ? AND status >= ?", patientID, status.toString())
+        List<Map<String, Object>> appointments = Appointment
+                .where("patientID = ? AND status >= ?", patientID, status.toString())
                 .toMaps();
 
         return appointments;
     }
 
-    public static void setAppointment(int doctorID, int patientID, int slotID, Status status) {
+    public static void setAppointment(int patientID, int doctorID, int slotID, Status status, String reason) {
         Appointment appointment = new Appointment();
-        appointment.set("doctorID", doctorID);
         appointment.set("patientID", patientID);
+        appointment.set("doctorID", doctorID);
         appointment.set("slotID", slotID);
         appointment.set("status", status.toString());
-        appointment.saveIt();
-        AvailabilitiesService.updateAvailability(slotID, false);
-    }
-
-    public static void setAppointment(int doctorID, int patientID, int slotID, Status status, String reason) {
-        Appointment appointment = new Appointment();
-        appointment.set("doctorID", doctorID);
-        appointment.set("patientID", patientID);
-        appointment.set("slotID", slotID);
-        appointment.set("status", status.toString());
-        appointment.set("reason", reason);
+        if (reason != null && !reason.isEmpty()) {
+            appointment.set("reason", reason);
+        }
         appointment.saveIt();
         AvailabilitiesService.updateAvailability(slotID, false);
     }

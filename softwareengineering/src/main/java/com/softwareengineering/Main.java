@@ -14,7 +14,8 @@ import io.javalin.Javalin;
 
 public class Main {
     public static void main(String[] args) {
-        Javalin app = Javalin.start(7070);
+        Javalin app = Javalin.create();
+        app.start(7070);
         app.before(ctx -> Db.connect());
         app.after(ctx -> Db.close());
 

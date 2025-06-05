@@ -6,8 +6,9 @@ import com.softwareengineering.dto.DiagnosisBody;
 
 import java.util.List;
 import java.util.Map;
-import io.javalin.Context;
+import io.javalin.http.Context;
 import com.softwareengineering.services.DiagnosesService;
+
 public class DiagnosesController {
     public static void init(Javalin app) {
         app.get("/patient-diagnoses", DiagnosesController::getDiagnoses);
@@ -18,11 +19,11 @@ public class DiagnosesController {
     public static void getDiagnoses(Context context) {
         int patientID = context.sessionAttribute("id");
         List<Map<String, Object>> diagnoses = DiagnosesService.getDiagnoses(patientID);
-        if(diagnoses == null || diagnoses.isEmpty()) {
+        if (diagnoses == null || diagnoses.isEmpty()) {
             context.status(404).json(Map.of("error", "No diagnoses found for this patient"));
             return;
-        }else{
-        context.json(diagnoses);
+        } else {
+            context.json(diagnoses);
         }
     }
 
