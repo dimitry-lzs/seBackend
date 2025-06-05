@@ -1,39 +1,130 @@
 package com.softwareengineering.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.softwareengineering.models.Appointment;
+import com.softwareengineering.models.Availability;
+import com.softwareengineering.models.User;
 import com.softwareengineering.models.enums.Status;
 
 public class AppointmentsService {
     public static List<Map<String, Object>> getDoctorAppointments(int doctorID) {
+        List<Appointment> appointments = Appointment.where("doctorID = ?", doctorID);
+        List<Map<String, Object>> result = new ArrayList<>();
 
-        List<Map<String, Object>> appointments = Appointment.where("doctorID = ?", doctorID).toMaps();
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = appointment.toMap();
 
-        return appointments;
+            // Get patient information - only name and telephone
+            int patientID = appointment.getInteger("patientID");
+            User patient = User.findFirst("id = ?", patientID);
+            if (patient != null) {
+                appointmentData.put("patient_name", patient.getString("fullName"));
+                appointmentData.put("patient_phone", patient.getString("phone"));
+            }
+
+            // Get availability information
+            int slotID = appointment.getInteger("slotID");
+            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
+            if (availability != null) {
+                appointmentData.put("slot_id", availability.getInteger("availabilityID"));
+                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            }
+
+            result.add(appointmentData);
+        }
+
+        return result;
     }
 
     public static List<Map<String, Object>> getDoctorAppointments(int doctorID, Status status) {
+        List<Appointment> appointments = Appointment.where("doctorID = ? AND status >= ?", doctorID,
+                status.toString());
+        List<Map<String, Object>> result = new ArrayList<>();
 
-        List<Map<String, Object>> appointments = Appointment.where("doctorID = ? AND status >= ?", doctorID, status.toString())
-                .toMaps();
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = appointment.toMap();
 
-        return appointments;
+            // Get patient information - only name and phone
+            int patientID = appointment.getInteger("patientID");
+            User patient = User.findFirst("id = ?", patientID);
+            if (patient != null) {
+                appointmentData.put("patient_name", patient.getString("fullName"));
+                appointmentData.put("patient_phone", patient.getString("phone"));
+            }
+
+            // Get availability information
+            int slotID = appointment.getInteger("slotID");
+            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
+            if (availability != null) {
+                appointmentData.put("slot_id", availability.getInteger("availabilityID"));
+                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            }
+
+            result.add(appointmentData);
+        }
+
+        return result;
     }
 
     public static List<Map<String, Object>> getPatientAppointments(int patientID) {
+        List<Appointment> appointments = Appointment.where("patientID = ?", patientID);
+        List<Map<String, Object>> result = new ArrayList<>();
 
-        List<Map<String, Object>> appointments = Appointment.where("patientID = ?", patientID).toMaps();
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = appointment.toMap();
 
-        return appointments;
+            // Get doctor information - only name and speciality
+            int doctorID = appointment.getInteger("doctorID");
+            User doctor = User.findFirst("id = ?", doctorID);
+            if (doctor != null) {
+                appointmentData.put("doctor_name", doctor.getString("fullName"));
+                appointmentData.put("doctor_specialty", doctor.getString("speciality"));
+            }
+
+            // Get availability information
+            int slotID = appointment.getInteger("slotID");
+            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
+            if (availability != null) {
+                appointmentData.put("slot_id", availability.getInteger("availabilityID"));
+                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            }
+
+            result.add(appointmentData);
+        }
+
+        return result;
     }
 
     public static List<Map<String, Object>> getPatientAppointments(int patientID, Status status) {
+        List<Appointment> appointments = Appointment.where("patientID = ? AND status >= ?", patientID,
+                status.toString());
+        List<Map<String, Object>> result = new ArrayList<>();
 
-        List<Map<String, Object>> appointments = Appointment.where("patientID = ? AND status >= ?", patientID, status.toString())
-                .toMaps();
+        for (Appointment appointment : appointments) {
+            Map<String, Object> appointmentData = appointment.toMap();
 
-        return appointments;
+            // Get doctor information - only name and specialty
+            int doctorID = appointment.getInteger("doctorID");
+            User doctor = User.findFirst("id = ?", doctorID);
+            if (doctor != null) {
+                appointmentData.put("doctor_name", doctor.getString("fullName"));
+                appointmentData.put("doctor_specialty", doctor.getString("speciality"));
+            }
+
+            // Get availability information
+            int slotID = appointment.getInteger("slotID");
+            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
+            if (availability != null) {
+                appointmentData.put("slot_id", availability.getInteger("availabilityID"));
+                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            }
+
+            result.add(appointmentData);
+        }
+
+        return result;
     }
 
     public static void setAppointment(int doctorID, int patientID, int slotID, Status status) {
