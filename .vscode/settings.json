@@ -4,13 +4,21 @@
     "workbench.colorCustomizations": {
         "activityBar.background": "#0d1e16",
         "activityBar.foreground": "#b8e6d3",
+        "activityBar.inactiveForeground": "#5a8a73",
         "activityBarBadge.background": "#4a90e2",
         "activityBarBadge.foreground": "#ffffff",
+        "activityBar.border": "#1a3d32",
         "statusBar.background": "#0d1e16",
         "statusBar.foreground": "#b8e6d3",
+        "statusBar.border": "#1a3d32",
+        "statusBar.noFolderBackground": "#0d1e16",
+        "statusBar.debuggingBackground": "#4a90e2",
+        "statusBar.debuggingForeground": "#ffffff",
         "titleBar.activeBackground": "#1a3d32",
         "titleBar.activeForeground": "#f0f9f6",
-        "inlineChat.foreground": "#ffffff",
+        "titleBar.inactiveBackground": "#0d1e16",
+        "titleBar.inactiveForeground": "#5a8a73",
+        "titleBar.border": "#1a3d32",
         "editor.background": "#020504",
         "editor.foreground": "#e8f4f0",
         "editor.lineHighlightBackground": "#0d1e16",
@@ -21,5 +29,76 @@
         "editorCursor.foreground": "#b8e6d3",
         "editorLineNumber.foreground": "#5a8a73",
         "editorLineNumber.activeForeground": "#b8e6d3",
+        // Sidebar - kept subdued
+        "sideBar.background": "#0a1411",
+        "sideBar.foreground": "#8db5a0",
+        "sideBar.border": "#1a3d32",
+        "sideBarTitle.foreground": "#b8e6d3",
+        "sideBarSectionHeader.background": "#0d1e16",
+        "sideBarSectionHeader.foreground": "#8db5a0",
+        // Lists - muted selections
+        "list.activeSelectionBackground": "#1a3d32",
+        "list.activeSelectionForeground": "#b8e6d3",
+        "list.inactiveSelectionBackground": "#0d1e16",
+        "list.hoverBackground": "#0d1e16",
+        "list.focusBackground": "#1a3d32",
+        "list.highlightForeground": "#4a90e2",
+        // Tabs - subtle contrast
+        "tab.activeBackground": "#0d1e16",
+        "tab.activeForeground": "#b8e6d3",
+        "tab.inactiveBackground": "#020504",
+        "tab.inactiveForeground": "#5a8a73",
+        "tab.border": "#020504",
+        "tab.activeBorder": "#4a90e2",
+        "editorGroupHeader.tabsBackground": "#020504",
+        // Panel - very dark
+        "panel.background": "#020504",
+        "panel.border": "#0d1e16",
+        "panelTitle.activeForeground": "#8db5a0",
+        "panelTitle.inactiveForeground": "#5a8a73",
+        "panelTitle.activeBorder": "#4a90e2",
+        // Terminal - dark with muted text
+        "terminal.background": "#020504",
+        "terminal.foreground": "#8db5a0",
+        "terminal.ansiGreen": "#5a8a73",
+        "terminal.ansiBlue": "#4a90e2",
+        "terminal.ansiCyan": "#5a8a73",
+        // Input - dark with subtle borders
+        "input.background": "#0d1e16",
+        "input.foreground": "#8db5a0",
+        "input.border": "#1a3d32",
+        "input.placeholderForeground": "#5a8a73",
+        "inputOption.activeBorder": "#4a90e2",
+        // Buttons
+        "button.background": "#4a90e2",
+        "button.foreground": "#ffffff",
+        "button.hoverBackground": "#5ba3f5",
+        // Notifications - dark
+        "notifications.background": "#0d1e16",
+        "notifications.foreground": "#8db5a0",
+        "notifications.border": "#1a3d32",
+        // Progress bar
+        "progressBar.background": "#4a90e2",
+        // Scrollbar - very subtle
+        "scrollbarSlider.background": "#1a3d32",
+        "scrollbarSlider.hoverBackground": "#2d5f47",
+        "scrollbarSlider.activeBackground": "#4a90e2",
+        // Breadcrumb - muted
+        "breadcrumb.background": "#020504",
+        "breadcrumb.foreground": "#5a8a73",
+        "breadcrumb.activeSelectionForeground": "#8db5a0",
+        // Git decorations
+        "gitDecoration.addedResourceForeground": "#8db5a0",
+        "gitDecoration.modifiedResourceForeground": "#4a90e2",
+        "gitDecoration.deletedResourceForeground": "#ff6b6b",
+        "gitDecoration.ignoredResourceForeground": "#5a8a73",
+        // Chat
+        "inlineChat.foreground": "#ffffff",
+        "inlineChat.background": "#0d1e16",
+        // Menu - dark
+        "menu.background": "#0d1e16",
+        "menu.foreground": "#8db5a0",
+        "menu.selectionBackground": "#1a3d32",
+        "menu.selectionForeground": "#b8e6d3"
     }
 }
