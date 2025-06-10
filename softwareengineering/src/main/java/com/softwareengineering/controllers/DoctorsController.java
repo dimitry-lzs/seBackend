@@ -1,17 +1,17 @@
 package com.softwareengineering.controllers;
 
-import io.javalin.Javalin;
 import com.softwareengineering.models.User;
 import java.util.List;
 import java.util.Map;
-import io.javalin.Context;
+import io.javalin.Javalin;
+import io.javalin.http.Context;
 import com.softwareengineering.services.DoctorsService;
 
 public class DoctorsController {
     public static void init(Javalin app) {
         app.get("/doctors", DoctorsController::getDoctors);
-        app.get("/get-doctor", DoctorsController::getDoctorByID);
-        app.get("/get-doctor-specialities", DoctorsController::getDoctorSpecialities);
+        app.get("/doctors/{id}", DoctorsController::getDoctorByID);
+        app.get("/specialities", DoctorsController::getDoctorSpecialities);
         app.get("/get-doctor-locations", DoctorsController::getDoctorLocations);
         app.get("/find-doctors", DoctorsController::findDoctors);
     }
@@ -22,8 +22,8 @@ public class DoctorsController {
     }
 
     private static void getDoctorByID(Context context) {
-        int doctorId = Integer.parseInt(context.queryParam("doctorID"));
-        User doctorModel = DoctorsService.getDoctorById(doctorId); // Use the actual type here
+        int doctorId = Integer.parseInt(context.pathParam("id"));
+        User doctorModel = DoctorsService.getDoctorById(doctorId);
         if (doctorModel != null) {
             context.json(doctorModel.toMap());
         } else {

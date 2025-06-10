@@ -9,7 +9,7 @@ import com.softwareengineering.dto.LoginBody;
 import com.softwareengineering.dto.RegisterBody;
 import com.softwareengineering.models.User;
 
-import io.javalin.Context;
+import io.javalin.http.Context;
 import io.javalin.Javalin;
 
 public class UserController {

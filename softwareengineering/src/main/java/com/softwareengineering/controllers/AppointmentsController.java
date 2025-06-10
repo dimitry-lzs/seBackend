@@ -12,7 +12,7 @@ import com.softwareengineering.dto.AppointmentBody;
 import com.softwareengineering.models.enums.Status;
 import com.softwareengineering.services.AppointmentsService;
 
-import io.javalin.Context;
+import io.javalin.http.Context;
 
 public class AppointmentsController {
     public static void init(Javalin app) {
@@ -151,8 +151,9 @@ public class AppointmentsController {
 
     private static void setAppointment(Context context) {
         AppointmentBody body = context.bodyAsClass(AppointmentBody.class);
-        if (body.doctorID == null || body.patientID == null) {
-            context.status(400).json(Map.of("error", "Doctor ID and Patient ID cannot be null"));
+        int patientID = context.sessionAttribute("id");
+        if (body.doctorID == null) {
+            context.status(400).json(Map.of("error", "Doctor ID cannot be null"));
             return;
         }
         if (body.slotID == null) {
@@ -163,14 +164,9 @@ public class AppointmentsController {
             context.status(400).json(Map.of("error", "Status cannot be null"));
             return;
         }
-        if (body.reason == null) {
-            AppointmentsService.setAppointment(body.doctorID, body.patientID, body.slotID, body.status);
-            context.status(201);
-            return;
-        } else {
-            AppointmentsService.setAppointment(body.doctorID, body.patientID, body.slotID, body.status, body.reason);
-            context.status(201);
-        }
+        AppointmentsService.setAppointment(patientID, body.doctorID, body.slotID, body.status, body.reason);
+        context.status(201);
+        return;
     }
 
     private static void viewAppointmentDetails(Context context) {

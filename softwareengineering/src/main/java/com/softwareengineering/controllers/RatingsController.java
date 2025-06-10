@@ -1,7 +1,7 @@
 package com.softwareengineering.controllers;
 
 import io.javalin.Javalin;
-import io.javalin.Context;
+import io.javalin.http.Context;
 
 import com.softwareengineering.dto.RatingBody;
 import com.softwareengineering.services.RatingsService;

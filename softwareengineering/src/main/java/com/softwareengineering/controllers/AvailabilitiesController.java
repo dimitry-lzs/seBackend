@@ -8,7 +8,7 @@ import com.softwareengineering.dto.AvailabilityBatchBody;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
-import io.javalin.Context;
+import io.javalin.http.Context;
 
 public class AvailabilitiesController {
     public static void init(Javalin app) {

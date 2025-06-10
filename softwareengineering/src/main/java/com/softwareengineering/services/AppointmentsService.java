@@ -127,23 +127,15 @@ public class AppointmentsService {
         return result;
     }
 
-    public static void setAppointment(int doctorID, int patientID, int slotID, Status status) {
+    public static void setAppointment(int patientID, int doctorID, int slotID, Status status, String reason) {
         Appointment appointment = new Appointment();
-        appointment.set("doctorID", doctorID);
         appointment.set("patientID", patientID);
+        appointment.set("doctorID", doctorID);
         appointment.set("slotID", slotID);
         appointment.set("status", status.toString());
-        appointment.saveIt();
-        AvailabilitiesService.updateAvailability(slotID, false);
-    }
-
-    public static void setAppointment(int doctorID, int patientID, int slotID, Status status, String reason) {
-        Appointment appointment = new Appointment();
-        appointment.set("doctorID", doctorID);
-        appointment.set("patientID", patientID);
-        appointment.set("slotID", slotID);
-        appointment.set("status", status.toString());
-        appointment.set("reason", reason);
+        if (reason != null && !reason.isEmpty()) {
+            appointment.set("reason", reason);
+        }
         appointment.saveIt();
         AvailabilitiesService.updateAvailability(slotID, false);
     }
@@ -172,6 +164,7 @@ public class AppointmentsService {
         int doctorID = appointment.getInteger("doctorID");
         User doctor = User.findFirst("id = ?", doctorID);
         if (doctor != null) {
+            appointmentData.put("doctor_id", doctor.getInteger("id"));
             appointmentData.put("doctor_name", doctor.getString("fullName"));
             appointmentData.put("doctor_specialty", doctor.getString("speciality"));
             appointmentData.put("doctor_phone", doctor.getString("phone"));
