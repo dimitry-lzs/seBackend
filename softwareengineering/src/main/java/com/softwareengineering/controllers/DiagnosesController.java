@@ -3,6 +3,7 @@ package com.softwareengineering.controllers;
 import io.javalin.Javalin;
 
 import com.softwareengineering.dto.DiagnosisBody;
+import com.softwareengineering.models.Diagnosis;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ public class DiagnosesController {
         app.get("/patient-diagnoses", DiagnosesController::getDiagnoses);
         app.post("/set-diagnosis", DiagnosesController::setDiagnosis);
         app.get("/get-diagnoses", DiagnosesController::getDiagnoses);
+        app.get("/view-diagnosis", DiagnosesController::viewDiagnosis);
     }
 
     public static void getDiagnoses(Context context) {
@@ -38,6 +40,17 @@ public class DiagnosesController {
         }
         DiagnosesService.setDiagnosis(body.appointmentID, body.decease, body.details);
         context.status(201);
+    }
+
+    public static void viewDiagnosis(Context context) {
+        int appointmentID = Integer.parseInt(context.queryParam("appointmentID"));
+        Diagnosis diagnosis = DiagnosesService.viewDiagnosis(appointmentID);
+        if (diagnosis == null) {
+            context.status(404).json(Map.of("message", "No diagnosis found for this appointment"));
+            return;
+        } else {
+            context.json(new DiagnosisBody(diagnosis));
+        }
     }
 
 }

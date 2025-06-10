@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.sql.Timestamp;
+
+import com.softwareengineering.dto.DiagnosisBody;
 import com.softwareengineering.models.Appointment;
 import com.softwareengineering.models.Availability;
+import com.softwareengineering.models.Diagnosis;
 import com.softwareengineering.models.User;
 import com.softwareengineering.models.enums.Status;
 
@@ -184,6 +187,17 @@ public class AppointmentsService {
         if (availability != null) {
             appointmentData.put("slot_id", availability.getInteger("availabilityID"));
             appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+        }
+
+        // Get Diagnosis information if available
+        Diagnosis diagnosis = DiagnosesService.viewDiagnosis(appointmentID);
+        if (diagnosis != null) {
+            DiagnosisBody diagnosisBody = new DiagnosisBody(diagnosis);
+            appointmentData.put("diagnosis_decease", diagnosisBody.decease);
+            appointmentData.put("diagnosis_details", diagnosisBody.details);
+        } else {
+            appointmentData.put("diagnosis_decease", null);
+            appointmentData.put("diagnosis_details", null);
         }
 
         return appointmentData;
