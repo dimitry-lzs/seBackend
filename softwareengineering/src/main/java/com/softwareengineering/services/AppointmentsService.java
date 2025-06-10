@@ -192,17 +192,6 @@ public class AppointmentsService {
             appointmentData.put("diagnosis_details", null);
         }
 
-        // Get Diagnosis information if available
-        Diagnosis diagnosis = DiagnosesService.viewDiagnosis(appointmentID);
-        if (diagnosis != null) {
-            DiagnosisBody diagnosisBody = new DiagnosisBody(diagnosis);
-            appointmentData.put("diagnosis_decease", diagnosisBody.decease);
-            appointmentData.put("diagnosis_details", diagnosisBody.details);
-        } else {
-            appointmentData.put("diagnosis_decease", null);
-            appointmentData.put("diagnosis_details", null);
-        }
-
         return appointmentData;
     }
 
