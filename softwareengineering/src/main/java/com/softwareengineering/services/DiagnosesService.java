@@ -37,4 +37,13 @@ public class DiagnosesService {
             return new ArrayList<>();
         }
     }
+
+    public static Diagnosis viewDiagnosis(int appointmentID) {
+        Diagnosis diagnosis = Diagnosis.findFirst("appointmentID = ?", appointmentID);
+        if (diagnosis == null) {
+            return null; // No diagnosis found for this appointment
+        } else {
+            return diagnosis; // Return the first diagnosis found
+        }
+    }
 }

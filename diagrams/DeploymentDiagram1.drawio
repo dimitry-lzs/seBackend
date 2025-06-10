@@ -1,0 +1,74 @@
+<mxfile host="65bd71144e">
+    <diagram name="Page-1" id="Ti9u1Fzc_sbEWZVWVZI5">
+        <mxGraphModel dx="686" dy="371" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-9" value="Deployment Diagram" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;" parent="1" vertex="1">
+                    <mxGeometry x="113" y="90" width="657" height="340" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-20" value="" style="group" parent="Fgeh2xhg69Tn__w8uzPN-9" vertex="1" connectable="0">
+                    <mxGeometry x="37" y="90" width="153" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-31" value="" style="group" parent="Fgeh2xhg69Tn__w8uzPN-20" vertex="1" connectable="0">
+                    <mxGeometry x="-20" width="153" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-12" value="Client Device (Browser)" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" parent="Fgeh2xhg69Tn__w8uzPN-31" vertex="1">
+                    <mxGeometry width="153" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-16" value="&lt;b&gt;React Frontend App&lt;/b&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="Fgeh2xhg69Tn__w8uzPN-31" vertex="1">
+                    <mxGeometry x="10" y="60" width="123" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-17" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="Fgeh2xhg69Tn__w8uzPN-16" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-26" value="" style="group" parent="Fgeh2xhg69Tn__w8uzPN-9" vertex="1" connectable="0">
+                    <mxGeometry x="252" y="90" width="153" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-34" value="" style="group" parent="Fgeh2xhg69Tn__w8uzPN-26" vertex="1" connectable="0">
+                    <mxGeometry width="153" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-10" value="Application Server (JAVA)" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" parent="Fgeh2xhg69Tn__w8uzPN-34" vertex="1">
+                    <mxGeometry width="153" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-24" value="&lt;b&gt;Javalin&lt;/b&gt;" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="Fgeh2xhg69Tn__w8uzPN-34" vertex="1">
+                    <mxGeometry x="10" y="60" width="123" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-25" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="Fgeh2xhg69Tn__w8uzPN-24" vertex="1">
+                    <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
+                        <mxPoint x="-27" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-27" value="" style="group" parent="Fgeh2xhg69Tn__w8uzPN-9" vertex="1" connectable="0">
+                    <mxGeometry x="477" y="90" width="163" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-14" value="Database Server" style="verticalAlign=top;align=left;shape=cube;size=10;direction=south;fontStyle=0;html=1;boundedLbl=1;spacingLeft=5;whiteSpace=wrap;" parent="Fgeh2xhg69Tn__w8uzPN-27" vertex="1">
+                    <mxGeometry width="163" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;b&gt;SQLite Database&lt;/b&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="Fgeh2xhg69Tn__w8uzPN-27">
+                    <mxGeometry x="31.5" y="60" width="100" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-29" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;rounded=0;entryX=0.562;entryY=0.989;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.565;exitY=-0.007;exitDx=0;exitDy=0;exitPerimeter=0;" parent="Fgeh2xhg69Tn__w8uzPN-9" source="Fgeh2xhg69Tn__w8uzPN-12" target="Fgeh2xhg69Tn__w8uzPN-10" edge="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="207" y="180" as="sourcePoint"/>
+                        <mxPoint x="347" y="180" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-30" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;HTTP&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Requests&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="Fgeh2xhg69Tn__w8uzPN-9" vertex="1">
+                    <mxGeometry x="166" y="143" width="70" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-32" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=open;endFill=0;dashed=1;rounded=0;exitX=0.584;exitY=-0.01;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.579;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="Fgeh2xhg69Tn__w8uzPN-9" source="Fgeh2xhg69Tn__w8uzPN-10" target="Fgeh2xhg69Tn__w8uzPN-14" edge="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="387" y="190" as="sourcePoint"/>
+                        <mxPoint x="547" y="190" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Fgeh2xhg69Tn__w8uzPN-33" value="&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;O.R.M.&lt;/font&gt;&lt;/div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Active JDBC&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="512" y="233" width="80" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
