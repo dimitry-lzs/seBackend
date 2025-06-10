@@ -1,0 +1,99 @@
+<mxfile host="65bd71144e">
+    <diagram id="ZTTr4Q2-jn8qHXTj1VWM" name="Page-1">
+        <mxGraphModel dx="2229" dy="813" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;p :Patient&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;fullName = John Smith&lt;/p&gt;&lt;div&gt;&amp;nbsp; email = jsmith@gmail.com&lt;/div&gt;&lt;div&gt;&amp;nbsp; password = frulifrula&lt;/div&gt;&lt;div&gt;&amp;nbsp; phone = 6908653496&lt;/div&gt;&lt;div&gt;&amp;nbsp; id = 1234567890&lt;/div&gt;&lt;div&gt;&amp;nbsp; amka = 07021999&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="144" y="60" width="160" height="130" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;d :Doctor&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin: 0px 0px 0px 8px;&quot;&gt;fullName = Paul Allen&lt;/p&gt;&lt;div&gt;&amp;nbsp; email = pallen@gmail.com&lt;/div&gt;&lt;div&gt;&amp;nbsp; password = tralalerotralala&lt;/div&gt;&lt;div&gt;&amp;nbsp; phone = 6978231908&lt;/div&gt;&lt;div&gt;&amp;nbsp; id = 3456789012&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp; licenseID = 4567890123&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; specialty = Pathologist&lt;/div&gt;&lt;div&gt;&amp;nbsp; bio = lorem ipsum dolor...&lt;/div&gt;&lt;div&gt;&amp;nbsp; officeLocation = Ampellokipoi&lt;/div&gt;&lt;div&gt;&amp;nbsp; rating = 4.5&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="530" y="25" width="180" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;d :Diagnosis&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;appointmentID = 2345678901&lt;/p&gt;&lt;div&gt;&amp;nbsp; name = Laryngitis&lt;/div&gt;&lt;div&gt;&amp;nbsp; details = lorem ipsum dolor...&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="420" y="450" width="180" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;av :Availability&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;date = 07/05/2025&lt;/p&gt;&lt;div&gt;&amp;nbsp; timeFrom = 2:30&lt;/div&gt;&lt;div&gt;&amp;nbsp; timeTo = 3:00&lt;/div&gt;&lt;div&gt;&amp;nbsp; doctorID = 3456789012&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="480" width="160" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;r :Rating&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;stars = 5&lt;/p&gt;&lt;div&gt;&amp;nbsp; text = lorem ipsum dolor...&lt;/div&gt;&lt;div&gt;&amp;nbsp; patientID = 1234567890&lt;/div&gt;&lt;div&gt;&amp;nbsp; doctorID = 3456789012&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="275" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="8" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="581" y="270" as="sourcePoint"/>
+                        <mxPoint x="494" y="120" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="430" y="275"/>
+                            <mxPoint x="430" y="125"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="20" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0.476;entryY=0.987;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="1" source="4" target="2">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="530" y="285" as="sourcePoint"/>
+                        <mxPoint x="314" y="135" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0.002;entryY=0.594;entryDx=0;entryDy=0;exitX=1.004;exitY=0.4;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="4" target="5">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="530" y="285" as="sourcePoint"/>
+                        <mxPoint x="314" y="135" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="470" y="320"/>
+                            <mxPoint x="470" y="135"/>
+                            <mxPoint x="530" y="135"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.983;exitY=0.429;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="8" target="5">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="690" y="330" as="sourcePoint"/>
+                        <mxPoint x="613.94" y="260" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="677" y="330"/>
+                            <mxPoint x="720" y="330"/>
+                            <mxPoint x="720" y="250"/>
+                            <mxPoint x="614" y="250"/>
+                            <mxPoint x="614" y="225"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="4">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="273.94" y="490" as="sourcePoint"/>
+                        <mxPoint x="238" y="410" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="238" y="409"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;entryX=0.399;entryY=-0.002;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="1" source="4" target="6">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="312" y="336" as="sourcePoint"/>
+                        <mxPoint x="540" y="154" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="300" y="370"/>
+                            <mxPoint x="492" y="370"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.614;entryY=1.01;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="7" target="4">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="300" y="535" as="sourcePoint"/>
+                        <mxPoint x="238" y="410" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="340" y="535"/>
+                            <mxPoint x="340" y="440"/>
+                            <mxPoint x="238" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;a :Appointment&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;date = 07/05/2025&lt;/p&gt;&lt;div&gt;&amp;nbsp; timeFrom = 2:30&lt;/div&gt;&lt;div&gt;&amp;nbsp; timeTo = 3:00&lt;/div&gt;&lt;div&gt;&amp;nbsp; status = Incomplete&lt;/div&gt;&lt;div&gt;&amp;nbsp; patientID = 1234567890&lt;/div&gt;&lt;div&gt;&amp;nbsp; doctorID = 3456789012&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="140" y="260" width="160" height="150" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
