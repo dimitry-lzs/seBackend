@@ -1,9 +1,9 @@
 package com.softwareengineering.services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.sql.Timestamp;
 
 import com.softwareengineering.dto.DiagnosisBody;
 import com.softwareengineering.models.Appointment;
@@ -165,6 +165,7 @@ public class AppointmentsService {
         User doctor = User.findFirst("id = ?", doctorID);
         if (doctor != null) {
             appointmentData.put("doctor_id", doctor.getInteger("id"));
+            appointmentData.put("doctor_avatar", doctor.getString("avatar"));
             appointmentData.put("doctor_name", doctor.getString("fullName"));
             appointmentData.put("doctor_specialty", doctor.getString("speciality"));
             appointmentData.put("doctor_phone", doctor.getString("phone"));
