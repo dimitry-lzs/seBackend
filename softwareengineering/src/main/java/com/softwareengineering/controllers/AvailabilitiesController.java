@@ -15,6 +15,7 @@ import io.javalin.http.Context;
 public class AvailabilitiesController {
     public static void init(Javalin app) {
         app.get("/doctor-availabilities", AvailabilitiesController::getDoctorAvailabilities);
+        app.get("/get-doctor-availabilities", AvailabilitiesController::getSpecificDoctorAvailabilities);
         app.post("/set-availability", AvailabilitiesController::setAvailability);
         app.patch("/cancel-availability", AvailabilitiesController::cancelAvailability);
     }
@@ -23,6 +24,33 @@ public class AvailabilitiesController {
         try {
             int doctorId = AuthUtils.validateDoctorAndGetId(context);
             List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorId);
+            context.json(availabilities);
+        } catch (UnauthorizedException e) {
+            AuthUtils.handleUnauthorized(context, e);
+        }
+    }
+
+    private static void getSpecificDoctorAvailabilities(Context context) {
+        try {
+            // Validate that the requester is a patient
+            AuthUtils.validatePatientAndGetId(context);
+
+            // Get doctorID from query parameter
+            String doctorIdParam = context.queryParam("doctorID");
+            if (doctorIdParam == null) {
+                context.status(400).json(Map.of("error", "doctorID parameter is required"));
+                return;
+            }
+
+            int doctorId;
+            try {
+                doctorId = Integer.parseInt(doctorIdParam);
+            } catch (NumberFormatException e) {
+                context.status(400).json(Map.of("error", "Invalid doctorID format"));
+                return;
+            }
+
+            List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorId, true);
             context.json(availabilities);
         } catch (UnauthorizedException e) {
             AuthUtils.handleUnauthorized(context, e);

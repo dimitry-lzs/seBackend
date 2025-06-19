@@ -9,8 +9,19 @@ import java.sql.Timestamp;
 public class AvailabilitiesService {
     public static List<Map<String, Object>> getDoctorAvailabilities(int DoctorID) {
         List<Map<String, Object>> availabilities = Availability
-                .where("doctorID = ? AND free >= ?", DoctorID, true).toMaps();
+                .where("doctorID = ?", DoctorID).toMaps();
         return availabilities;
+    }
+
+    public static List<Map<String, Object>> getDoctorAvailabilities(int DoctorID, boolean onlyFree) {
+        if (onlyFree) {
+            List<Map<String, Object>> availabilities = Availability
+                    .where("doctorID = ? AND free = ?", DoctorID, true).toMaps();
+            return availabilities;
+        } else {
+            // Show all slots
+            return getDoctorAvailabilities(DoctorID);
+        }
     }
 
     public static void setAvailability(Timestamp slot, int doctorID) {
