@@ -5,5 +5,4 @@ import java.util.List;
 
 public class AvailabilityBatchBody {
     public List<Timestamp> slots;
-    public Integer doctorID;
 }

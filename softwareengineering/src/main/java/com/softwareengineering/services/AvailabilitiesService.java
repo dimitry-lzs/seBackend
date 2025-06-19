@@ -14,6 +14,13 @@ public class AvailabilitiesService {
     }
 
     public static void setAvailability(Timestamp slot, int doctorID) {
+        // Check if availability already exists for this doctor at this time slot
+        Availability existingAvailability = Availability.findFirst("timeFrom = ? AND doctorID = ?", slot.toString(), doctorID);
+
+        if (existingAvailability != null) {
+            throw new IllegalArgumentException("Availability slot already exists for this doctor at " + slot.toString());
+        }
+
         Availability availability = new Availability();
         availability.set("timeFrom", slot.toString());
         availability.set("doctorID", doctorID);

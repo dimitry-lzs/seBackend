@@ -4,6 +4,8 @@ import io.javalin.Javalin;
 
 import com.softwareengineering.services.AvailabilitiesService;
 import com.softwareengineering.dto.AvailabilityBatchBody;
+import com.softwareengineering.utils.AuthUtils;
+import com.softwareengineering.utils.AuthUtils.UnauthorizedException;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -18,22 +20,63 @@ public class AvailabilitiesController {
     }
 
     private static void getDoctorAvailabilities(Context context) {
-        int doctorID = Integer.parseInt(context.queryParam("doctorID"));
-        List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorID);
-        context.json(availabilities);
+        try {
+            int doctorId = AuthUtils.validateDoctorAndGetId(context);
+            List<Map<String, Object>> availabilities = AvailabilitiesService.getDoctorAvailabilities(doctorId);
+            context.json(availabilities);
+        } catch (UnauthorizedException e) {
+            AuthUtils.handleUnauthorized(context, e);
+        }
     }
 
     private static void setAvailability(Context context) {
-        AvailabilityBatchBody body = context.bodyAsClass(AvailabilityBatchBody.class);
-        if (body.slots == null || body.slots.isEmpty()) {
-            context.status(400).json(Map.of("error", "Invalid request body"));
-            return;
-        }
-        for (Timestamp slot : body.slots) {
-            AvailabilitiesService.setAvailability(slot, body.doctorID);
-            context.status(201).json(Map.of("message", "Availability set successfully"));
-        }
+        try {
+            int doctorId = AuthUtils.validateDoctorAndGetId(context);
+            AvailabilityBatchBody body = context.bodyAsClass(AvailabilityBatchBody.class);
+            if (body.slots == null || body.slots.isEmpty()) {
+                context.status(400).json(Map.of("error", "Invalid request body"));
+                return;
+            }
 
+            // Process each slot and collect any duplicate errors
+            java.util.List<String> duplicateSlots = new java.util.ArrayList<>();
+            java.util.List<String> successfulSlots = new java.util.ArrayList<>();
+
+            for (Timestamp slot : body.slots) {
+                try {
+                    AvailabilitiesService.setAvailability(slot, doctorId);
+                    successfulSlots.add(slot.toString());
+                } catch (IllegalArgumentException e) {
+                    if (e.getMessage().contains("already exists")) {
+                        duplicateSlots.add(slot.toString());
+                    } else {
+                        // Re-throw other IllegalArgumentExceptions
+                        throw e;
+                    }
+                }
+            }
+
+            // Prepare response based on results
+            if (duplicateSlots.isEmpty()) {
+                context.status(201).json(Map.of("message", "All availability slots set successfully"));
+            } else if (successfulSlots.isEmpty()) {
+                context.status(409).json(Map.of(
+                    "error", "All slots already exist",
+                    "duplicateSlots", duplicateSlots
+                ));
+            } else {
+                context.status(207).json(Map.of(
+                    "message", "Partially successful",
+                    "successfulSlots", successfulSlots,
+                    "duplicateSlots", duplicateSlots,
+                    "warning", "Some slots already existed and were skipped"
+                ));
+            }
+        } catch (UnauthorizedException e) {
+            AuthUtils.handleUnauthorized(context, e);
+        } catch (IllegalArgumentException e) {
+            context.status(400).json(Map.of("error", e.getMessage()));
+        }
     }
 
     private static void cancelAvailability(Context context) {
