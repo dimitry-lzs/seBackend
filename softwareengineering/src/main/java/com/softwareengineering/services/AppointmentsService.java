@@ -153,6 +153,30 @@ public class AppointmentsService {
         }
     }
 
+    public static void completeAppointment(int appointmentID) {
+        // Check if appointment exists
+        Appointment appointment = Appointment.findFirst("appointmentID = ?", appointmentID);
+        if (appointment == null) {
+            throw new IllegalArgumentException("Appointment with ID " + appointmentID + " not found.");
+        }
+        
+        // Check if there's at least one diagnosis for this appointment
+        List<Diagnosis> diagnoses = DiagnosesService.getAppointmentDiagnoses(appointmentID);
+        if (diagnoses.isEmpty()) {
+            throw new IllegalStateException("Cannot complete appointment without at least one diagnosis.");
+        }
+        
+        int rowsUpdated = Appointment.update("status = ?",
+                "appointmentID = ?",
+                Status.COMPLETED.toString(),
+                appointmentID);
+        if (rowsUpdated == 0) {
+            throw new IllegalArgumentException("Appointment with ID " + appointmentID + " not found.");
+        }
+        // Note: We don't free the availability slot when completing (unlike cancelling)
+        // as the appointment actually took place
+    }
+
     public static Map<String, Object> getAppointmentDetails(int appointmentID) {
         Appointment appointment = Appointment.findFirst("appointmentID = ?", appointmentID);
         if (appointment == null) {
@@ -183,16 +207,19 @@ public class AppointmentsService {
             appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
         }
 
-        // Get Diagnosis information if available
-        Diagnosis diagnosis = DiagnosesService.viewDiagnosis(appointmentID);
-        if (diagnosis != null) {
+        // Get all diagnoses for this appointment
+        List<Diagnosis> diagnoses = DiagnosesService.getAppointmentDiagnoses(appointmentID);
+        List<Map<String, Object>> diagnosesData = new ArrayList<>();
+        
+        for (Diagnosis diagnosis : diagnoses) {
             DiagnosisBody diagnosisBody = new DiagnosisBody(diagnosis);
-            appointmentData.put("diagnosis_decease", diagnosisBody.decease);
-            appointmentData.put("diagnosis_details", diagnosisBody.details);
-        } else {
-            appointmentData.put("diagnosis_decease", null);
-            appointmentData.put("diagnosis_details", null);
+            Map<String, Object> diagnosisMap = new java.util.HashMap<>();
+            diagnosisMap.put("decease", diagnosisBody.decease);
+            diagnosisMap.put("details", diagnosisBody.details);
+            diagnosesData.add(diagnosisMap);
         }
+        
+        appointmentData.put("diagnoses", diagnosesData);
 
         return appointmentData;
     }

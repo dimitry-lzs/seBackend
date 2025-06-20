@@ -7,6 +7,8 @@ public class DiagnosisBody {
     public String decease;
     public String details;
 
+    public DiagnosisBody() {
+    }
 
     public DiagnosisBody(Diagnosis diagnosis) {
         this.appointmentID = diagnosis.getInteger("appointmentID");

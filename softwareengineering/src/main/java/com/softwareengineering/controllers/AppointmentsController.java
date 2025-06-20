@@ -23,6 +23,7 @@ public class AppointmentsController {
         app.get("/view-appointment-details", AppointmentsController::viewAppointmentDetails);
         app.post("/set-appointment", AppointmentsController::setAppointment);
         app.patch("/cancel-appointment", AppointmentsController::cancelAppointment);
+        app.patch("/complete-appointment", AppointmentsController::completeAppointment);
         app.get("/doctor-appointments-by-status", AppointmentsController::getDoctorAppointmentsByStatus);
         app.get("/patient-appointments-by-status", AppointmentsController::getPatientAppointmentsByStatus);
     }
@@ -236,6 +237,24 @@ public class AppointmentsController {
             } else {
                 AppointmentsService.cancelAppointment(body.appointmentID);
                 context.status(200);
+            }
+        } catch (UnauthorizedException e) {
+            AuthUtils.handleUnauthorized(context, e);
+        }
+    }
+
+    private static void completeAppointment(Context context) {
+        try {
+            // Only doctors can mark appointments as completed
+            AuthUtils.validateDoctorAndGetId(context);
+
+            AppointmentBody body = context.bodyAsClass(AppointmentBody.class);
+            if (body.appointmentID == null) {
+                context.status(400).json(Map.of("error", "Appointment ID cannot be null"));
+                return;
+            } else {
+                AppointmentsService.completeAppointment(body.appointmentID);
+                context.status(200).json(Map.of("message", "Appointment marked as completed"));
             }
         } catch (UnauthorizedException e) {
             AuthUtils.handleUnauthorized(context, e);
