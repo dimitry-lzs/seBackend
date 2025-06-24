@@ -2,5 +2,5 @@ CREATE TABLE availabilities (
 	availabilityID INTEGER PRIMARY KEY AUTOINCREMENT,
 	timeFrom TIMESTAMP,
 	free BOOLEAN DEFAULT TRUE,
-	doctorID REFERENCES users(id)
+	doctorID REFERENCES users(id) NOT NULL,
 );
