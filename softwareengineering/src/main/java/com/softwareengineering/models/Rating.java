@@ -5,7 +5,8 @@ import org.javalite.activejdbc.annotations.Table;
 
 @Table("ratings")
 public class Rating extends Model {
-    public Rating(int stars, String comments, int doctorId, int patientId) {
+    public Rating(int appointmentId, int stars, String comments, int doctorId, int patientId) {
+        set("appointmentId", appointmentId);
         set("stars", stars);
         set("comments", comments);
         set("doctorId", doctorId);
