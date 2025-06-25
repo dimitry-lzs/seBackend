@@ -9,14 +9,18 @@ import java.sql.Timestamp;
 public class AvailabilitiesService {
     public static List<Map<String, Object>> getDoctorAvailabilities(int DoctorID) {
         List<Map<String, Object>> availabilities = Availability
-                .where("doctorID = ?", DoctorID).toMaps();
+                .where("doctorID = ?", DoctorID)
+                .orderBy("timeFrom ASC")
+                .toMaps();
         return availabilities;
     }
 
     public static List<Map<String, Object>> getDoctorAvailabilities(int DoctorID, boolean onlyFree) {
         if (onlyFree) {
             List<Map<String, Object>> availabilities = Availability
-                    .where("doctorID = ? AND free = ?", DoctorID, true).toMaps();
+                    .where("doctorID = ? AND free = ?", DoctorID, true)
+                    .orderBy("timeFrom ASC")
+                    .toMaps();
             return availabilities;
         } else {
             // Show all slots
@@ -43,5 +47,15 @@ public class AvailabilitiesService {
         if (rowsUpdated == 0) {
             throw new IllegalArgumentException("Slot with ID " + availabilityID + " not found.");
         }
+    }
+    public static void deleteAvailability(int availabilityID, int doctorID) {
+        Availability availability = Availability.findFirst("availabilityID = ?", availabilityID);
+        if (availability == null) {
+            throw new IllegalArgumentException("Slot with ID " + availabilityID + " not found.");
+        }
+        if (availability.getDoctorID() != doctorID) {
+            throw new IllegalArgumentException("You do not have permission to delete this slot.");
+        }
+        availability.delete();
     }
 }

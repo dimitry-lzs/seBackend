@@ -17,7 +17,7 @@ public class AvailabilitiesController {
         app.get("/doctor-availabilities", AvailabilitiesController::getDoctorAvailabilities);
         app.get("/get-doctor-availabilities", AvailabilitiesController::getSpecificDoctorAvailabilities);
         app.post("/set-availability", AvailabilitiesController::setAvailability);
-        app.patch("/cancel-availability", AvailabilitiesController::cancelAvailability);
+        app.delete("/delete-availability/{availabilityID}", AvailabilitiesController::deleteAvailability);
     }
 
     private static void getDoctorAvailabilities(Context context) {
@@ -107,9 +107,16 @@ public class AvailabilitiesController {
         }
     }
 
-    private static void cancelAvailability(Context context) {
-        int availabilityID = Integer.parseInt(context.queryParam("availabilityID"));
-        AvailabilitiesService.updateAvailability(availabilityID, false);
-        context.status(200).json(Map.of("message", "Availability cancelled successfully"));
+    private static void deleteAvailability(Context context) {
+        try {
+            int doctorId = AuthUtils.validateDoctorAndGetId(context);
+            int availabilityId = Integer.parseInt(context.pathParam("availabilityID"));
+            AvailabilitiesService.deleteAvailability(availabilityId, doctorId);
+            context.status(200).json(Map.of("message", "Availability deleted successfully"));
+        } catch (UnauthorizedException e) {
+            AuthUtils.handleUnauthorized(context, e);
+        } catch (NumberFormatException e) {
+            context.status(400).json(Map.of("error", "Invalid availability ID format"));
+        }
     }
 }
