@@ -32,7 +32,7 @@ public class AppointmentsService {
             int slotID = appointment.getInteger("slotID");
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
@@ -61,7 +61,7 @@ public class AppointmentsService {
             int slotID = appointment.getInteger("slotID");
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
@@ -89,7 +89,7 @@ public class AppointmentsService {
             int slotID = appointment.getInteger("slotID");
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
@@ -118,7 +118,7 @@ public class AppointmentsService {
             int slotID = appointment.getInteger("slotID");
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
@@ -159,13 +159,13 @@ public class AppointmentsService {
         if (appointment == null) {
             throw new IllegalArgumentException("Appointment with ID " + appointmentID + " not found.");
         }
-        
+
         // Check if there's at least one diagnosis for this appointment
         List<Diagnosis> diagnoses = DiagnosesService.getAppointmentDiagnoses(appointmentID);
         if (diagnoses.isEmpty()) {
             throw new IllegalStateException("Cannot complete appointment without at least one diagnosis.");
         }
-        
+
         int rowsUpdated = Appointment.update("status = ?",
                 "appointmentID = ?",
                 Status.COMPLETED.toString(),
@@ -204,13 +204,13 @@ public class AppointmentsService {
         Availability availability = Availability.findFirst("availabilityID = ?", slotID);
         if (availability != null) {
             appointmentData.put("slot_id", availability.getInteger("availabilityID"));
-            appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+            appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
         }
 
         // Get all diagnoses for this appointment
         List<Diagnosis> diagnoses = DiagnosesService.getAppointmentDiagnoses(appointmentID);
         List<Map<String, Object>> diagnosesData = new ArrayList<>();
-        
+
         for (Diagnosis diagnosis : diagnoses) {
             DiagnosisBody diagnosisBody = new DiagnosisBody(diagnosis);
             Map<String, Object> diagnosisMap = new java.util.HashMap<>();
@@ -218,7 +218,7 @@ public class AppointmentsService {
             diagnosisMap.put("details", diagnosisBody.details);
             diagnosesData.add(diagnosisMap);
         }
-        
+
         appointmentData.put("diagnoses", diagnosesData);
 
         return appointmentData;
@@ -261,7 +261,7 @@ public class AppointmentsService {
             int slotID = appointment.getInteger("slotID");
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
@@ -312,7 +312,7 @@ public class AppointmentsService {
             int slotID = appointment.getInteger("slotID");
             Availability availability = Availability.findFirst("availabilityID = ?", slotID);
             if (availability != null) {
-                appointmentData.put("slot_timeFrom", availability.getString("timeFrom"));
+                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
             }
 
             result.add(appointmentData);
@@ -349,7 +349,7 @@ public class AppointmentsService {
                         }
 
                         // Add availability information
-                        appointmentData.put("slot_timeFrom", timeFromStr);
+                        appointmentData.put("slot_timefrom", timeFromStr);
 
                         result.add(appointmentData);
                     }
@@ -396,7 +396,7 @@ public class AppointmentsService {
                         }
 
                         // Add availability information
-                        appointmentData.put("slot_timeFrom", timeFromStr);
+                        appointmentData.put("slot_timefrom", timeFromStr);
 
                         result.add(appointmentData);
                     }

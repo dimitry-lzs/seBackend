@@ -15,7 +15,8 @@ public class RatingsService {
     }
 
     public static Rating setRating(int appointmentID, int stars, String comments, int patientID) {
-        Appointment appointment = Appointment.findFirst("appointmentID = ? AND patientID = ?", appointmentID, patientID);
+        Appointment appointment = Appointment.findFirst("appointmentID = ? AND patientID = ?", appointmentID,
+                patientID);
         if (appointment == null) {
             throw new IllegalArgumentException("Appointment not found for the given patient ID");
         }
@@ -26,33 +27,23 @@ public class RatingsService {
     }
 
     public static Rating updateRating(int appointmentID, int stars, String comments, int userId) {
-        Rating rating = getRatingByAppointmentID(appointmentID, userId, UserTypeEnum.PATIENT);
-        if (rating == null) {
-            throw new IllegalArgumentException("Rating not found for the given appointment ID and user type");
+        int rowsUpdated = Rating.update(
+                "stars = ?, comments = ?",
+                "appointmentID = ?",
+                stars, comments, appointmentID);
+
+        if (rowsUpdated == 0) {
+            throw new IllegalArgumentException("Rating not found for the given appointment ID");
         }
-        
-        // Debug: Check if the rating is considered "new" or "persisted"
-        System.out.println("Rating found - ID: " + rating.getId() + ", isNew: " + rating.isNew());
-        
-        rating.setStars(stars);
-        rating.setComments(comments);
-        rating.saveIt();
-        return rating;
+
+        return Rating.findFirst("appointmentID = ?", appointmentID);
     }
 
     public static Rating getRatingByAppointmentID(int appointmentID, int userId, UserTypeEnum userType) {
         if (userType == UserTypeEnum.PATIENT) {
-            Appointment appointment = Appointment.findFirst("appointmentID = ? AND patientID = ?", appointmentID, userId);
-            if (appointment == null) {
-                throw new IllegalArgumentException("Appointment not found for the given patient ID");
-            }
-            return Rating.findFirst("doctorID = ? AND patientID = ?", appointment.get("doctorID"), userId);
+            return Rating.findFirst("appointmentID = ? AND patientID = ?", appointmentID, userId);
         } else if (userType == UserTypeEnum.DOCTOR) {
-            Appointment appointment = Appointment.findFirst("appointmentID = ? AND doctorID = ?", appointmentID, userId);
-            if (appointment == null) {
-                throw new IllegalArgumentException("Appointment not found for the given doctor ID");
-            }
-            return Rating.findFirst("doctorID = ? AND patientID = ?", userId, appointment.get("patientID"));
+            return Rating.findFirst("appointmentID = ? AND doctorID = ?", appointmentID, userId);
         } else {
             throw new IllegalArgumentException("Invalid user type for rating retrieval");
         }

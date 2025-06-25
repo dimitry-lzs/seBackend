@@ -94,10 +94,6 @@ public class RatingsController {
 
             Rating appointmentRating = RatingsService.getRatingByAppointmentID(appointmentID, userId, userType);
 
-            if (appointmentRating == null) {
-                context.json(Map.of("message", "No rating found for this appointment"));
-                return;
-            }
 
             context.json(appointmentRating);
         } catch (UnauthorizedException exception) {
