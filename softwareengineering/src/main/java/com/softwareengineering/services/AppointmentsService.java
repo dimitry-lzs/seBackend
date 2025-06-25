@@ -25,35 +25,7 @@ public class AppointmentsService {
             User patient = User.findFirst("id = ?", patientID);
             if (patient != null) {
                 appointmentData.put("patient_name", patient.getString("fullName"));
-                appointmentData.put("patient_phone", patient.getString("phone"));
-            }
-
-            // Get availability information
-            int slotID = appointment.getInteger("slotID");
-            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
-            if (availability != null) {
-                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
-            }
-
-            result.add(appointmentData);
-        }
-
-        return result;
-    }
-
-    public static List<Map<String, Object>> getDoctorAppointments(int doctorID, Status status) {
-        List<Appointment> appointments = Appointment.where("doctorID = ? AND status >= ?", doctorID,
-                status.toString());
-        List<Map<String, Object>> result = new ArrayList<>();
-
-        for (Appointment appointment : appointments) {
-            Map<String, Object> appointmentData = appointment.toMap();
-
-            // Get patient information - only name and phone
-            int patientID = appointment.getInteger("patientID");
-            User patient = User.findFirst("id = ?", patientID);
-            if (patient != null) {
-                appointmentData.put("patient_name", patient.getString("fullName"));
+                appointmentData.put("patient_avatar", patient.getString("avatar"));
                 appointmentData.put("patient_phone", patient.getString("phone"));
             }
 
@@ -82,35 +54,7 @@ public class AppointmentsService {
             User doctor = User.findFirst("id = ?", doctorID);
             if (doctor != null) {
                 appointmentData.put("doctor_name", doctor.getString("fullName"));
-                appointmentData.put("doctor_specialty", doctor.getString("speciality"));
-            }
-
-            // Get availability information
-            int slotID = appointment.getInteger("slotID");
-            Availability availability = Availability.findFirst("availabilityID = ?", slotID);
-            if (availability != null) {
-                appointmentData.put("slot_timefrom", availability.getString("timeFrom"));
-            }
-
-            result.add(appointmentData);
-        }
-
-        return result;
-    }
-
-    public static List<Map<String, Object>> getPatientAppointments(int patientID, Status status) {
-        List<Appointment> appointments = Appointment.where("patientID = ? AND status >= ?", patientID,
-                status.toString());
-        List<Map<String, Object>> result = new ArrayList<>();
-
-        for (Appointment appointment : appointments) {
-            Map<String, Object> appointmentData = appointment.toMap();
-
-            // Get doctor information - only name and specialty
-            int doctorID = appointment.getInteger("doctorID");
-            User doctor = User.findFirst("id = ?", doctorID);
-            if (doctor != null) {
-                appointmentData.put("doctor_name", doctor.getString("fullName"));
+                appointmentData.put("doctor_avatar", doctor.getString("avatar"));
                 appointmentData.put("doctor_specialty", doctor.getString("speciality"));
             }
 
@@ -254,6 +198,7 @@ public class AppointmentsService {
             User patient = User.findFirst("id = ?", patientID);
             if (patient != null) {
                 appointmentData.put("patient_name", patient.getString("fullName"));
+                appointmentData.put("patient_avatar", patient.getString("avatar"));
                 appointmentData.put("patient_phone", patient.getString("phone"));
             }
 
@@ -345,6 +290,7 @@ public class AppointmentsService {
                         User patient = User.findFirst("id = ?", patientID);
                         if (patient != null) {
                             appointmentData.put("patient_name", patient.getString("fullName"));
+                            appointmentData.put("patient_avatar", patient.getString("avatar"));
                             appointmentData.put("patient_phone", patient.getString("phone"));
                         }
 
@@ -355,7 +301,8 @@ public class AppointmentsService {
                     }
                 } catch (IllegalArgumentException e) {
                     // Handle case where timeFrom is not in the expected format
-                    System.err.println("Invalid time format for appointment " + appointment.getId() + ": " + timeFromStr);
+                    System.err
+                            .println("Invalid time format for appointment " + appointment.getId() + ": " + timeFromStr);
                 }
             }
         }
@@ -402,7 +349,8 @@ public class AppointmentsService {
                     }
                 } catch (IllegalArgumentException e) {
                     // Handle case where timeFrom is not in the expected format
-                    System.err.println("Invalid time format for appointment " + appointment.getId() + ": " + timeFromStr);
+                    System.err
+                            .println("Invalid time format for appointment " + appointment.getId() + ": " + timeFromStr);
                 }
             }
         }
