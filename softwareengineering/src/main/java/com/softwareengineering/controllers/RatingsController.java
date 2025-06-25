@@ -22,11 +22,12 @@ public class RatingsController {
     }
 
     private static void getRatings(Context context) {
-        String doctorID = context.queryParam("doctorID");
         try {
-            int doctorId = (doctorID == null || doctorID.isEmpty())
-                    ? AuthUtils.validateDoctorAndGetId(context)
-                    : getDoctorIdFromPatientRequest(context, doctorID);
+            UserTypeEnum userType = AuthUtils.getUserTypeFromSession(context);
+            String doctorID = context.queryParam("doctorID");
+            int doctorId = userType == UserTypeEnum.PATIENT
+                    ? getDoctorIdFromPatientRequest(context, doctorID)
+                    : AuthUtils.validateDoctorAndGetId(context);
 
             List<Map<String, Object>> ratings = RatingsService.getRatings(doctorId);
             context.json(ratings);
@@ -93,7 +94,6 @@ public class RatingsController {
             int userId = AuthUtils.validateUserAndGetId(context, userType);
 
             Rating appointmentRating = RatingsService.getRatingByAppointmentID(appointmentID, userId, userType);
-
 
             context.json(appointmentRating);
         } catch (UnauthorizedException exception) {
