@@ -8,6 +8,7 @@ import java.util.Map;
 import java.time.LocalDateTime;
 
 import com.softwareengineering.dto.AppointmentBody;
+import com.softwareengineering.models.enums.UserTypeEnum;
 import com.softwareengineering.services.AppointmentsService;
 import com.softwareengineering.utils.AuthUtils;
 import com.softwareengineering.utils.AuthUtils.UnauthorizedException;
@@ -140,13 +141,9 @@ public class AppointmentsController {
 
     private static void cancelAppointment(Context context) {
         try {
-            // Either doctor or patient can cancel appointment - just validate
-            // authentication
-            Integer userId = context.sessionAttribute("id");
-            String userType = context.sessionAttribute("userType");
-            if (userId == null || userId == 0 || userType == null) {
-                throw new UnauthorizedException("No valid session found");
-            }
+            UserTypeEnum userType = AuthUtils.getUserTypeFromSession(context);
+
+            AuthUtils.validateUserAndGetId(context, userType);
 
             AppointmentBody body = context.bodyAsClass(AppointmentBody.class);
             if (body.appointmentID == null) {
