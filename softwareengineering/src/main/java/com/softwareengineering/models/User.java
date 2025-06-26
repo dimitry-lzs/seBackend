@@ -30,6 +30,10 @@ public class User extends Model {
     }
 
     public UserTypeEnum getType() {
-        return (UserTypeEnum) this.get("userType");
+        String userTypeStr = (String) this.get("userType");
+        if (userTypeStr == null) {
+            return null;
+        }
+        return UserTypeEnum.valueOf(userTypeStr);
     }
 }

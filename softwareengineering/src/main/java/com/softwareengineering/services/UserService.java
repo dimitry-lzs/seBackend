@@ -66,6 +66,8 @@ public class UserService {
         if (user == null) {
             throw new IllegalArgumentException("User not found");
         }
+
+        // Update common fields
         if (body.fullName != null && !body.fullName.isEmpty()) {
             user.set("fullName", body.fullName);
         }
@@ -79,22 +81,33 @@ public class UserService {
         if (body.phone != null && !body.phone.isEmpty()) {
             user.set("phone", body.phone);
         }
-        if (body.amka != null && !body.amka.isEmpty()) {
-            user.set("amka", body.amka);
+
+        // Use appropriate wrapper class based on user type
+        UserTypeEnum userType = user.getType();
+        if (UserTypeEnum.PATIENT.equals(userType)) {
+            Patient patient = new Patient(user);
+            if (body.amka != null && !body.amka.isEmpty()) {
+                patient.setAmka(body.amka);
+            }
+            return patient.saveIt();
+        } else if (UserTypeEnum.DOCTOR.equals(userType)) {
+            Doctor doctor = new Doctor(user);
+            if (body.licenceID != null && !body.licenceID.isEmpty()) {
+                doctor.setLicenceID(body.licenceID);
+            }
+            if (body.speciality != null) {
+                doctor.setSpeciality(body.speciality);
+            }
+            if (body.officeLocation != null) {
+                doctor.setOfficeLocation(body.officeLocation.toString());
+            }
+            if (body.bio != null && !body.bio.isEmpty()) {
+                doctor.setBio(body.bio);
+            }
+            return doctor.saveIt();
+        } else {
+            throw new IllegalArgumentException("Invalid user type");
         }
-        if (body.licenceID != null && !body.licenceID.isEmpty()) {
-            user.set("licenceID", body.licenceID);
-        }
-        if (body.speciality != null) {
-            user.set("speciality", body.speciality);
-        }
-        if (body.officeLocation != null && body.officeLocation != null) {
-            user.set("officeLocation", body.officeLocation);
-        }
-        if (body.bio != null && !body.bio.isEmpty()) {
-            user.set("bio", body.bio);
-        }
-        return user.saveIt();
     }
 
     public static String getAvatar(int id) {

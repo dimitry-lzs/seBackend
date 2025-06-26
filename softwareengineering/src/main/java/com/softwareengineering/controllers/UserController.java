@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.softwareengineering.services.UserService;
+import com.softwareengineering.utils.AuthUtils;
 import com.softwareengineering.dto.AvatarBody;
 import com.softwareengineering.dto.LoginBody;
 import com.softwareengineering.dto.RegisterBody;
 import com.softwareengineering.models.User;
+import com.softwareengineering.models.enums.UserTypeEnum;
 
 import io.javalin.http.Context;
 import io.javalin.Javalin;
@@ -113,18 +115,20 @@ public class UserController {
     }
 
     private static void updateUser(Context context) {
-        int id = context.sessionAttribute("id");
-        if (id == 0 || context.sessionAttribute("id") == null) {
-            context.status(401).json(Map.of("message", "Unauthorized"));
+        try {
+            UserTypeEnum userType = AuthUtils.getUserTypeFromSession(context);
+            int id = AuthUtils.validateUserAndGetId(context, userType);
+            RegisterBody userData = context.bodyAsClass(RegisterBody.class);
+            boolean updated = UserService.updateUser(id, userData);
+            if (!updated) {
+                context.status(400).json(Map.of("message", "Failed to update user"));
+                return;
+            }
+            context.status(200).json(Map.of("message", "User updated successfully"));
+        } catch (AuthUtils.UnauthorizedException e) {
+            AuthUtils.handleUnauthorized(context, e);
             return;
         }
-        RegisterBody userData = context.bodyAsClass(RegisterBody.class);
-        boolean updated = UserService.updateUser(id, userData);
-        if (!updated) {
-            context.status(400).json(Map.of("message", "Failed to update user"));
-            return;
-        }
-        context.status(200).json(Map.of("message", "User updated successfully"));
     }
 
     private static void getUsers(Context context) {
