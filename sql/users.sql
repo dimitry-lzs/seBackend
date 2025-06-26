@@ -13,4 +13,5 @@ CREATE TABLE
         officeLocation text,
         rating real,
         avatar text,
+        is_dark INTEGER DEFAULT 0,
     );
