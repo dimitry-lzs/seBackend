@@ -15,4 +15,6 @@ public enum Speciality {
     RADIOLOGIST,
     UROLOGIST,
     ORNITHOLOGIST,
+    OPHTHALMOLOGIST,
+    DENTIST,
 }
