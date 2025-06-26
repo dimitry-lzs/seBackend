@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mediq-app:
+    build: .
+    container_name: mediq-backend
+    restart: unless-stopped
+    ports:
+      - "7070:7070"
+    volumes:
+      # Persist SQLite database
+      - ./data:/app/data
+      - ./database.db:/app/database.db
+    environment:
+      - JAVA_OPTS=-Xmx512m -Xms256m
+      - APP_ENV=production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7070/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - mediq-network
+
+  # Optional: Add nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: mediq-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro  # For SSL certificates
+    depends_on:
+      - mediq-app
+    networks:
+      - mediq-network
+
+networks:
+  mediq-network:
+    driver: bridge
+
+volumes:
+  mediq-data:
+    driver: local
