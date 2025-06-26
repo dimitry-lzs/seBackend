@@ -9,7 +9,7 @@ public class Doctor extends UserWrapper implements DoctorInterface {
     // Default constructor
     public Doctor() {
         super(new User());
-        set("userType", UserTypeEnum.DOCTOR);
+        set("userType", UserTypeEnum.DOCTOR.toString());
     }
 
     public Doctor(String fullName, String email, String password, String phone, String licenceID,
@@ -24,17 +24,17 @@ public class Doctor extends UserWrapper implements DoctorInterface {
 
     public Doctor(User user) {
         super(user);
-        if (!UserTypeEnum.DOCTOR.equals(user.get("userType"))) {
+        if (!UserTypeEnum.DOCTOR.equals(user.getType())) {
             throw new IllegalArgumentException("User is not a doctor");
         }
     }
 
     public static Doctor findByEmail(String email) {
-        User user = User.findFirst("userType = ? AND email = ?", UserTypeEnum.DOCTOR, email);
+        User user = User.findFirst("userType = ? AND email = ?", UserTypeEnum.DOCTOR.toString(), email);
         if (user == null) {
             return null;
         }
-        if (!UserTypeEnum.DOCTOR.equals(user.get("userType"))) {
+        if (!UserTypeEnum.DOCTOR.equals(user.getType())) {
             throw new IllegalArgumentException("User is not a doctor");
         }
         return new Doctor(user);

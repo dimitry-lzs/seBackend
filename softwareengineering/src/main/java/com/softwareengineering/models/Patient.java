@@ -7,7 +7,7 @@ public class Patient extends UserWrapper implements PatientInterface {
 
     public Patient() {
         super(new User());
-        set("userType", UserTypeEnum.PATIENT);
+        set("userType", UserTypeEnum.PATIENT.toString());
     }
 
     public Patient(String fullName, String email, String password, String phone) {
@@ -20,7 +20,7 @@ public class Patient extends UserWrapper implements PatientInterface {
 
     public Patient(User user) {
         super(user);
-        if (!UserTypeEnum.PATIENT.equals(user.get("userType"))) {
+        if (!UserTypeEnum.PATIENT.equals(user.getType())) {
             throw new IllegalArgumentException("User is not a patient");
         }
     }

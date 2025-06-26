@@ -26,7 +26,7 @@ public class User extends Model {
         this.set("email", email);
         this.set("password", password);
         this.set("phone", phone);
-        this.set("userType", userType);
+        this.set("userType", userType.toString());
     }
 
     public UserTypeEnum getType() {
