@@ -3,7 +3,6 @@ package com.softwareengineering.controllers;
 import io.javalin.Javalin;
 
 import com.softwareengineering.dto.DiagnosisBody;
-import com.softwareengineering.models.Diagnosis;
 import com.softwareengineering.utils.AuthUtils;
 import com.softwareengineering.utils.AuthUtils.UnauthorizedException;
 
@@ -14,23 +13,15 @@ import com.softwareengineering.services.DiagnosesService;
 
 public class DiagnosesController {
     public static void init(Javalin app) {
-        app.get("/patient-diagnoses", DiagnosesController::getDiagnoses);
-        app.post("/set-diagnosis", DiagnosesController::setDiagnosis);
-        app.get("/get-diagnoses", DiagnosesController::getDiagnoses);
-        app.get("/view-diagnosis", DiagnosesController::viewDiagnosis);
+        app.get("/diagnoses", DiagnosesController::getDiagnoses);
+        app.post("/diagnosis", DiagnosesController::setDiagnosis);
     }
 
     public static void getDiagnoses(Context context) {
         try {
-            // Only patients can view their own diagnoses
             int patientID = AuthUtils.validatePatientAndGetId(context);
             List<Map<String, Object>> diagnoses = DiagnosesService.getDiagnoses(patientID);
-            if (diagnoses == null || diagnoses.isEmpty()) {
-                context.status(404).json(Map.of("error", "No diagnoses found for this patient"));
-                return;
-            } else {
-                context.json(diagnoses);
-            }
+            context.json(diagnoses);
         } catch (UnauthorizedException e) {
             AuthUtils.handleUnauthorized(context, e);
         }
@@ -56,27 +47,4 @@ public class DiagnosesController {
             AuthUtils.handleUnauthorized(context, e);
         }
     }
-
-    public static void viewDiagnosis(Context context) {
-        try {
-            // Both doctors and patients can view diagnosis details - just validate authentication
-            Integer userId = context.sessionAttribute("id");
-            String userType = context.sessionAttribute("userType");
-            if (userId == null || userId == 0 || userType == null) {
-                throw new UnauthorizedException("No valid session found");
-            }
-
-            int appointmentID = Integer.parseInt(context.queryParam("appointmentID"));
-            Diagnosis diagnosis = DiagnosesService.viewDiagnosis(appointmentID);
-            if (diagnosis == null) {
-                context.status(404).json(Map.of("message", "No diagnosis found for this appointment"));
-                return;
-            } else {
-                context.json(new DiagnosisBody(diagnosis));
-            }
-        } catch (UnauthorizedException e) {
-            AuthUtils.handleUnauthorized(context, e);
-        }
-    }
-
 }
