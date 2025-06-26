@@ -38,5 +38,10 @@ public class Main {
         PatientsController.init(app);
 
         app.get("/", ctx -> ctx.result("Software Engineering Backend"));
+
+        app.get("/health", ctx -> {
+            // Simple health check endpoint
+            ctx.status(200).json(Map.of("status", "UP"));
+        });
     }
 }
