@@ -110,6 +110,7 @@ public class UserController {
         addIfNotNull(userData, "speciality", user.get("speciality"));
         addIfNotNull(userData, "officeLocation", user.get("officeLocation"));
         addIfNotNull(userData, "bio", user.get("bio"));
+        addIfNotNull(userData, "isDark", user.getIsDark());
 
         return userData;
     }

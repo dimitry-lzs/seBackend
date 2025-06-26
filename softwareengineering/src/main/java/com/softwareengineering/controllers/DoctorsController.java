@@ -17,7 +17,16 @@ public class DoctorsController {
     }
 
     private static void getDoctors(Context context) {
-        List<Map<String, Object>> doctors = DoctorsService.getDoctors();
+        String isDarkParam = context.queryParam("is_dark");
+        List<Map<String, Object>> doctors;
+        
+        if (isDarkParam != null && !isDarkParam.isEmpty()) {
+            boolean isDark = Boolean.parseBoolean(isDarkParam);
+            doctors = DoctorsService.getDoctorsByDarkFlag(isDark);
+        } else {
+            doctors = DoctorsService.getDoctors();
+        }
+        
         context.json(doctors);
     }
 

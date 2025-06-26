@@ -38,4 +38,10 @@ public class DoctorsService {
         String sql = "SELECT * FROM users WHERE userType = ? AND speciality = ? AND officeLocation = ?";
         return User.findBySQL(sql, "DOCTOR", speciality, officeLocation).toMaps();
     }
+
+    public static List<Map<String, Object>> getDoctorsByDarkFlag(boolean isDark) {
+        // SQLite stores boolean as INTEGER (1 for true, 0 for false)
+        int isDarkValue = isDark ? 1 : 0;
+        return User.where("userType = ? AND is_dark = ?", "DOCTOR", isDarkValue).toMaps();
+    }
 }

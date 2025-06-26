@@ -16,6 +16,14 @@ public class UserService {
 
     public static boolean registerUser(RegisterBody body) {
         User user = new User(body.fullName, body.email, body.password, body.phone, body.userType);
+        
+        // Set is_dark flag if provided (defaults to false if null)
+        if (body.isDark != null) {
+            user.setIsDark(body.isDark);
+        } else {
+            user.setIsDark(false); // Default to false
+        }
+        
         User existingUser = User.findFirst("email = ?", body.email);
         if (existingUser != null) {
             throw new IllegalArgumentException("User with this email already exists");
@@ -65,9 +73,7 @@ public class UserService {
         User user = User.findFirst("id = ?", id);
         if (user == null) {
             throw new IllegalArgumentException("User not found");
-        }
-
-        // Update common fields
+        }        // Update common fields
         if (body.fullName != null && !body.fullName.isEmpty()) {
             user.set("fullName", body.fullName);
         }
@@ -81,7 +87,12 @@ public class UserService {
         if (body.phone != null && !body.phone.isEmpty()) {
             user.set("phone", body.phone);
         }
-
+        
+        // Update is_dark flag if provided
+        if (body.isDark != null) {
+            user.setIsDark(body.isDark);
+        }
+        
         // Use appropriate wrapper class based on user type
         UserTypeEnum userType = user.getType();
         if (UserTypeEnum.PATIENT.equals(userType)) {

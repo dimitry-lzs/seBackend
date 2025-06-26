@@ -15,4 +15,5 @@ public class RegisterBody {
     public Speciality speciality;
     public City officeLocation;
     public String bio;
+    public Boolean isDark; // New field for filtering doctors
 }

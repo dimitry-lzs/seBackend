@@ -36,4 +36,24 @@ public class User extends Model {
         }
         return UserTypeEnum.valueOf(userTypeStr);
     }
+
+    public Boolean getIsDark() {
+        Object isDark = this.get("is_dark");
+        if (isDark == null) {
+            return false; // Default to false if not set
+        }
+        if (isDark instanceof Boolean) {
+            return (Boolean) isDark;
+        }
+        if (isDark instanceof Integer) {
+            return ((Integer) isDark) != 0; // SQLite stores boolean as INTEGER (0/1)
+        }
+        // Handle string values from database
+        return Boolean.valueOf(isDark.toString());
+    }
+
+    public void setIsDark(Boolean isDark) {
+        // Store as INTEGER for SQLite compatibility
+        this.set("is_dark", isDark != null && isDark ? 1 : 0);
+    }
 }
