@@ -1,12 +1,33 @@
-# Software Engineering Backend
+# MediQ Backend
 
-## Instructions
+Medical appointment management system.
 
-Before running
+## Quick Start
+
+### Install Docker
 
 ```bash
-cd softwareengineering
-mvn process-classes
+# Linux/macOS
+wget -qO get-docker.sh https://get.docker.com && sudo sh get-docker.sh
+
+# macOS (Homebrew)
+brew install --cask docker
 ```
 
-After that you can run it pressing F5 in VSCode
+### Run Application
+
+```bash
+# Build and run (detached)
+docker compose up -d --build
+
+# Check status
+docker compose ps
+
+# View logs
+docker compose logs -f
+
+# Stop
+docker compose down
+```
+
+**Access:** <http://localhost:7070>
