@@ -19,6 +19,9 @@ RUN mvn clean package -DskipTests
 # Runtime stage
 FROM eclipse-temurin:21-jre-jammy AS final
 
+# Accept build argument for API key
+ARG GROQ_API_KEY
+
 # Install useful tools
 RUN apt-get update && apt-get install -y \
     curl \
@@ -48,6 +51,9 @@ COPY sql/ ./sql/
 # Create data directory for SQLite
 RUN mkdir -p /app/data && \
     chown -R appuser:appuser /app
+
+# Set environment variable for runtime
+ENV GROQ_API_KEY=${GROQ_API_KEY}
 
 # Switch to non-root user
 USER appuser

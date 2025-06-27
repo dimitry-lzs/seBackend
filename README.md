@@ -17,6 +17,12 @@ brew install --cask docker
 ### Run Application
 
 ```bash
+# Option 1: Set API key in .env file (recommended)
+echo "GROQ_API_KEY=your_groq_api_key_here" > .env
+
+# Option 2: Set API key as environment variable
+export GROQ_API_KEY="your_groq_api_key_here"
+
 # Build and run (detached)
 docker compose up -d --build
 
