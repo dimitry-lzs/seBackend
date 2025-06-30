@@ -1,0 +1,19 @@
+# Minimal Docker Compose configuration for MediQ Backend
+services:
+  server:
+    build:
+      context: .
+      args:
+        GROQ_API_KEY: ${GROQ_API_KEY}
+    ports:
+      - 7070:7070
+    volumes:
+      # Persist SQLite database
+      - ./database.db:/app/database.db
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7070/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

@@ -1,4 +1,3 @@
-
 package com.softwareengineering;
 import java.util.Map;
 
@@ -6,14 +5,19 @@ import com.softwareengineering.controllers.AppointmentsController;
 import com.softwareengineering.controllers.AvailabilitiesController;
 import com.softwareengineering.controllers.DiagnosesController;
 import com.softwareengineering.controllers.RatingsController;
+import com.softwareengineering.controllers.SummaryController;
 import com.softwareengineering.controllers.UserController;
 import com.softwareengineering.controllers.PatientsController;
 import com.softwareengineering.controllers.DoctorsController;
+import com.softwareengineering.utils.EnvLoader;
 
 import io.javalin.Javalin;
 
 public class Main {
     public static void main(String[] args) {
+        // Load .env file for development mode
+        EnvLoader.loadEnv();
+        
         Javalin app = Javalin.create();
         app.start(7070);
         app.before(ctx -> Db.connect());
@@ -36,7 +40,13 @@ public class Main {
         DiagnosesController.init(app);
         DoctorsController.init(app);
         PatientsController.init(app);
+        SummaryController.init(app);
 
         app.get("/", ctx -> ctx.result("Software Engineering Backend"));
+
+        app.get("/health", ctx -> {
+            // Simple health check endpoint
+            ctx.status(200).json(Map.of("status", "UP"));
+        });
     }
 }

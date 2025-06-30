@@ -1,2 +1,5 @@
 target
 .DS_Store
+
+# Environment variables (contains sensitive data)
+.env

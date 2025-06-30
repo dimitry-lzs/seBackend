@@ -1,12 +1,39 @@
-# Software Engineering Backend
+# MediQ Backend
 
-## Instructions
+Medical appointment management system.
 
-Before running
+## Quick Start
+
+### Install Docker
 
 ```bash
-cd softwareengineering
-mvn process-classes
+# Linux/macOS
+wget -qO get-docker.sh https://get.docker.com && sudo sh get-docker.sh
+
+# macOS (Homebrew)
+brew install --cask docker
 ```
 
-After that you can run it pressing F5 in VSCode
+### Run Application
+
+```bash
+# Option 1: Set API key in .env file (recommended)
+echo "GROQ_API_KEY=your_groq_api_key_here" > .env
+
+# Option 2: Set API key as environment variable
+export GROQ_API_KEY="your_groq_api_key_here"
+
+# Build and run (detached)
+docker compose up -d --build
+
+# Check status
+docker compose ps
+
+# View logs
+docker compose logs -f
+
+# Stop
+docker compose down
+```
+
+**Access:** <http://localhost:7070>
